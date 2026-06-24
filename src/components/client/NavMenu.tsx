@@ -24,8 +24,8 @@ function NavMenu({
                 <NavMenuItem
                     key={i.displayText}
                     icon={i.icon}
-                    displayText={i.displayText}
                     link={i.link}
+                    displayText={i.displayText}
                 />
             ))}
         </div>
