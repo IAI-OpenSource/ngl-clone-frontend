@@ -2,8 +2,9 @@ import { create } from "zustand/react"
 import { persist } from "zustand/middleware/persist"
 
 interface ThreadAuthStore {
-    // Indique si l'user est connect a thread
+    // Indique si l'user est connect
     isAuthenticated: boolean
+
     // Méthode pour mettre a jour le store positivement
     setAuthenticate: () => void
     // Méthode pour mettre à jour le store négativement
@@ -13,8 +14,9 @@ interface ThreadAuthStore {
 export const useThreadAuthStore = create<ThreadAuthStore>()(
     persist(
         (set) => ({
-            isAuthenticated: false,
+            threadData: null,
 
+            isAuthenticated: false,
             setAuthenticate: () => {
                 set({ isAuthenticated: true })
             },
@@ -26,5 +28,3 @@ export const useThreadAuthStore = create<ThreadAuthStore>()(
         { name: "auth" }
     )
 )
-
-
