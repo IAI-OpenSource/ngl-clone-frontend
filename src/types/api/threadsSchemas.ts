@@ -15,6 +15,7 @@ export type ThreadLoginPayload = z.infer<typeof ThreadLoginPayloadZodSchema>
 
 export type ConnectToThreadResponse = CommonApiBaseResponse<GlobalStringResponse>
 
+export type ReadThread = components["schemas"]["ReadThreadWithUserConnectionInfo"]
 export type GetThreadResponse = CommonApiBaseResponse<
     components["schemas"]["ReadThreadWithUserConnectionInfo"]
 >

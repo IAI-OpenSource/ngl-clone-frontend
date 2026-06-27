@@ -28,7 +28,7 @@ export const items: NavBarMenuItemProps[] = [
         icon: <CirclePlus />,
     },
 ]
-export const mobileNavbarItems = [
+export const mobileNavbarItems = (func: () => void) => [
     {
         icon: <Home size={18} />,
         label: "Home",
@@ -52,6 +52,6 @@ export const mobileNavbarItems = [
     {
         icon: <SquarePlus size={18} />,
         label: "Settings",
-        onClick: () => alert("Settings!"),
+        onClick: () => func(),
     },
 ]

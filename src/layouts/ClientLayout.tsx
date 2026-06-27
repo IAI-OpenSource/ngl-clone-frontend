@@ -1,23 +1,25 @@
 import { Outlet } from "react-router"
 import Navbar from "@/components/client/Navbar.tsx"
 import MobileNavMenu from "@/components/client/MobileNavMenu.tsx"
+import { DotPattern } from "@/components/ui/dot-pattern"
+import { TooltipProvider } from "@/components/ui/tooltip.tsx"
 
 function ClientLayout() {
     return (
-        <div className="flex min-h-screen flex-col">
-            <header className="sticky top-0 z-50 flex h-16 w-full items-center bg-background px-6">
-                <Navbar />
-            </header>
-            <main>
-                <div className="h-screen w-full ">
+        <TooltipProvider>
+            <div className="relative flex min-h-screen flex-col overflow-hidden">
+                <DotPattern className="opacity-30 -z-10"/>
+                <header className="top-0 z-50 flex h-16 w-full items-center ">
+                    <Navbar />
+                </header>
+                <main className="flex-1 w-full pt-10 flex justify-center items-center">
                     <Outlet />
+                </main>
+                <div className="fixed right-0 bottom-0 left-0 z-50">
+                    <MobileNavMenu />
                 </div>
-            </main>
-            <div className="fixed right-0 bottom-0 left-0 z-50">
-                <MobileNavMenu />
             </div>
-            {/*<Footer />*/}
-        </div>
+        </TooltipProvider>
     )
 }
 

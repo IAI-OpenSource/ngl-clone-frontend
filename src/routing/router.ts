@@ -4,7 +4,7 @@ import { createBrowserRouter } from "react-router"
 import { CLIENT_ROUTES_MAPPING, PATHS_MAPPING } from "./paths-mapping.ts"
 import ClientLayout from "@/layouts/ClientLayout.tsx"
 import Index from "@/pages/Index.tsx"
-import Placeholder from "@/pages/Placeholder.tsx"
+import ThreadsPage from "@/pages/ThreadsPage.tsx"
 
 export const router = createBrowserRouter([
     {
@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: CLIENT_ROUTES_MAPPING.THREADS,
-                Component: Placeholder,
+                Component: ThreadsPage,
             },
         ],
     },
