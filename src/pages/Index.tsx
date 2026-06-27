@@ -11,7 +11,7 @@ function Index() {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen flex gap-3 items-center justify-center ">
+        <div className="flex gap-3 items-center justify-center">
             <Button variant="default" onClick={() => {
                 toast("Navigation vers le page Admin", {
                     duration: 1500,

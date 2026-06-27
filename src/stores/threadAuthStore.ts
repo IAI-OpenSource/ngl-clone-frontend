@@ -1,5 +1,5 @@
 import { create } from "zustand/react"
-import { persist } from "zustand/middleware/persist"
+import { persist } from "zustand/middleware"
 
 interface ThreadAuthStore {
     // Indique si l'user est connect
