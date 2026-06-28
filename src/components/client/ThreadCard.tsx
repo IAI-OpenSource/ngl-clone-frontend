@@ -18,7 +18,7 @@ export function ThreadCard({ thread }: Readonly<{ thread: ReadThread }>) {
     return (
         <div
             className={[
-                "group relative flex cursor-pointer items-center gap-4 overflow-hidden md:w-5/12",
+                "group relative flex cursor-pointer items-center gap-4 overflow-hidden w-11/12 md:w-5/12",
                 "rounded-2xl px-5 py-4 transition-all duration-300",
                 "border bg-card",
                 is_active
