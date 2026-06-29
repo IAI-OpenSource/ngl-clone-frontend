@@ -1,52 +1,65 @@
-'use client';
+"use client"
 
 import {
-  motion,
-  MotionValue,
-  useMotionValue,
-  useSpring,
-  useTransform,
-  type SpringOptions,
-  AnimatePresence
-} from 'motion/react';
-import React, { Children, cloneElement, useEffect, useMemo, useRef, useState } from 'react';
+    motion,
+    MotionValue,
+    useMotionValue,
+    useSpring,
+    useTransform,
+    type SpringOptions,
+    AnimatePresence,
+} from "motion/react"
+import React, {
+    Children,
+    cloneElement,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from "react"
+import { NavLink } from "react-router"
 
-import './Dock.css';
+import "./Dock.css"
+
+const MotionNavLink = motion.create(NavLink)
 
 export type DockItemData = {
-  icon: React.ReactNode;
-  label: React.ReactNode;
-  onClick: () => void;
-  className?: string;
-};
+    icon: React.ReactNode
+    label: React.ReactNode
+    onClick?: () => void
+    link?: string
+    className?: string
+}
 
 export type DockProps = {
-  items: DockItemData[];
-  className?: string;
-  distance?: number;
-  panelHeight?: number;
-  baseItemSize?: number;
-  dockHeight?: number;
-  magnification?: number;
-  spring?: SpringOptions;
-};
+    items: DockItemData[]
+    className?: string
+    distance?: number
+    panelHeight?: number
+    baseItemSize?: number
+    dockHeight?: number
+    magnification?: number
+    spring?: SpringOptions
+}
 
 type DockItemProps = {
-  className?: string;
-  children: React.ReactNode;
-  onClick?: () => void;
-  mouseX: MotionValue<number>;
-  spring: SpringOptions;
-  distance: number;
-  baseItemSize: number;
-  magnification: number;
-  label?: React.ReactNode;
-};
+    className?: string
+    children: React.ReactNode
+    onClick?: () => void
+    link?: string
+    mouseX: MotionValue<number>
+    spring: SpringOptions
+    distance: number
+    baseItemSize: number
+    magnification: number
+    label?: React.ReactNode
+}
 
 function DockItem({
     children,
     className = "",
     onClick,
+    link,
     mouseX,
     spring,
     distance,
@@ -54,7 +67,14 @@ function DockItem({
     baseItemSize,
     label,
 }: Readonly<DockItemProps>) {
-    const ref = useRef<HTMLDivElement>(null)
+    if (!link && !onClick) {
+        throw new Error(
+            "DockItem: either `link` or `onClick` must be provided."
+        )
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const ref = useRef<any>(null)
     const isHovered = useMotionValue(0)
 
     const mouseDistance = useTransform(mouseX, (val) => {
@@ -72,51 +92,62 @@ function DockItem({
     )
     const size = useSpring(targetSize, spring)
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === "Enter" || e.key === " ") {
             e.preventDefault()
             onClick?.()
         }
     }
 
+    const clonedChildren = Children.map(children, (child) =>
+        React.isValidElement(child)
+            ? cloneElement(
+                  child as React.ReactElement<{
+                      isHovered?: MotionValue<number>
+                  }>,
+                  { isHovered }
+              )
+            : child
+    )
+
+    const sharedProps = {
+        ref,
+        style: { width: size, height: size },
+        className: `dock-item ${className}`,
+        onHoverStart: () => isHovered.set(1),
+        onHoverEnd: () => isHovered.set(0),
+        onFocus: () => isHovered.set(1),
+        onBlur: () => isHovered.set(0),
+        "aria-label": typeof label === "string" ? label : undefined,
+    }
+
+    if (link) {
+        return (
+            <MotionNavLink to={link} {...sharedProps}>
+                {clonedChildren}
+            </MotionNavLink>
+        )
+    }
+
     return (
         <motion.div
-            ref={ref}
-            style={{
-                width: size,
-                height: size,
-            }}
-            onHoverStart={() => isHovered.set(1)}
-            onHoverEnd={() => isHovered.set(0)}
-            onFocus={() => isHovered.set(1)}
-            onBlur={() => isHovered.set(0)}
+            {...sharedProps}
             onClick={onClick}
             onKeyDown={handleKeyDown}
-            className={`dock-item ${className}`}
             tabIndex={0}
             role="button"
             aria-haspopup="true"
-            aria-label={typeof label === "string" ? label : undefined}
         >
-            {Children.map(children, (child) =>
-                React.isValidElement(child)
-                    ? cloneElement(
-                          child as React.ReactElement<{
-                              isHovered?: MotionValue<number>
-                          }>,
-                          { isHovered }
-                      )
-                    : child
-            )}
+            {clonedChildren}
         </motion.div>
     )
 }
 
 type DockLabelProps = {
-  className?: string;
-  children: React.ReactNode;
-  isHovered?: MotionValue<number>;
-};
+    className?: string
+    children: React.ReactNode
+    isHovered?: MotionValue<number>
+}
 
 function DockLabel({
     children,
@@ -127,9 +158,9 @@ function DockLabel({
 
     useEffect(() => {
         if (!isHovered) return
-        const unsubscribe = isHovered.on("change", (latest) => {
+        const unsubscribe = isHovered.on("change", (latest) =>
             setIsVisible(latest === 1)
-        })
+        )
         return () => unsubscribe()
     }, [isHovered])
 
@@ -153,10 +184,10 @@ function DockLabel({
 }
 
 type DockIconProps = {
-  className?: string;
-  children: React.ReactNode;
-  isHovered?: MotionValue<number>;
-};
+    className?: string
+    children: React.ReactNode
+    isHovered?: MotionValue<number>
+}
 
 function DockIcon({ children, className = "" }: Readonly<DockIconProps>) {
     return <div className={`dock-icon ${className}`}>{children}</div>
@@ -205,6 +236,7 @@ export default function Dock({
                     <DockItem
                         key={index}
                         onClick={item.onClick}
+                        link={item.link}
                         className={item.className}
                         mouseX={mouseX}
                         spring={spring}

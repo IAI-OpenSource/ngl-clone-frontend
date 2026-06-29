@@ -1,15 +1,20 @@
-import NavMenu from "@/components/client/NavMenu.tsx"
-import { items } from "@/data/navbar.tsx"
+// import NavMenu from "@/components/client/NavMenu.tsx"
+// import { items } from "@/data/navbar.tsx"
 import OnlineStatus from "@/components/client/OnlineStatus.tsx"
 import nglLogo from "@/assets/images/ngl-logo.png"
 import { useThreadAuthStore } from "@/stores/threadAuthStore.ts"
+import { GooeyInput } from "@/components/ui/gooey-input.tsx"
 
 function Navbar() {
     return (
         <nav className="fixed inset-x-4 top-6 mx-auto h-16 max-w-(--breakpoint-xl) rounded-full border bg-background">
             <div className="mx-auto flex h-full items-center justify-between px-4">
                 <Logo />
-                <NavMenu items={items} />
+                {/*Code Mort*/}
+                {/*<NavMenu items={items} />*/}
+                <div className="hidden items-center gap-3 md:flex">
+                    <GooeyInput collapsedWidth={200} expandedWidth={250} placeholder="Rechercher..." />
+                </div>
                 <ThreadInfo />
             </div>
         </nav>

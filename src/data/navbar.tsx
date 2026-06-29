@@ -1,15 +1,16 @@
 import type { NavBarMenuItemProps } from "@/types/navbar.ts"
 import { CLIENT_ROUTES_MAPPING } from "@/routing/paths-mapping.ts"
 import {
+    AudioWaveform,
     CirclePlus,
     Eye,
     Home,
     MessageCircleCode,
+    MessageCirclePlus,
     MessagesSquare,
-    Rows4,
-    SendHorizonal,
-    SquarePlus,
+    Sun,
 } from "lucide-react"
+import type { DockItemData } from "@/components/Dock.tsx"
 
 export const items: NavBarMenuItemProps[] = [
     {
@@ -28,30 +29,30 @@ export const items: NavBarMenuItemProps[] = [
         icon: <CirclePlus />,
     },
 ]
-export const mobileNavbarItems = (func: () => void) => [
+export const mobileNavbarItems = (func: () => void): DockItemData[] => [
     {
         icon: <Home size={18} />,
         label: "Home",
-        onClick: () => alert("Home!"),
+        link: CLIENT_ROUTES_MAPPING.HOME,
     },
     {
-        icon: <Rows4 size={18} />,
+        icon: <AudioWaveform size={18} />,
         label: "Threads",
-        onClick: () => alert("Archive!"),
+        link: CLIENT_ROUTES_MAPPING.THREADS,
     },
     {
         icon: <MessagesSquare size={18} />,
         label: "Messages",
-        onClick: () => alert("Profile!"),
+        link: CLIENT_ROUTES_MAPPING.THREADS_MESSAGES,
     },
     {
-        icon: <SendHorizonal size={18} />,
-        label: "Settings",
-        onClick: () => alert("Settings!"),
+        icon: <MessageCirclePlus size={18} />,
+        label: "Nouveau Message",
+        link: CLIENT_ROUTES_MAPPING.NEW_MESSAGE,
     },
     {
-        icon: <SquarePlus size={18} />,
-        label: "Settings",
+        icon: <Sun size={18} />,
+        label: "Changer Theme",
         onClick: () => func(),
     },
 ]

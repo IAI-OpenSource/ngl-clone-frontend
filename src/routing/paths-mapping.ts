@@ -20,4 +20,5 @@ export const CLIENT_ROUTES_MAPPING = {
     HOME: PATHS_MAPPING.HOME,
     THREADS: getClientRoute(PATHS_MAPPING.THREAD),
     THREADS_MESSAGES: getClientRoute(PATHS_MAPPING.THREAD) + '/messages',
+    NEW_MESSAGE: getClientRoute(PATHS_MAPPING.THREAD) + '/new-message',
 } as const
