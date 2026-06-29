@@ -11,7 +11,13 @@ import { Toaster } from "react-hot-toast"
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
-        <Toaster />
+        <Toaster
+            toastOptions={{
+                // On désactive le rendu de l'icône par défaut pour les méthodes success/error native
+                success: { icon: null },
+                error: { icon: null },
+            }}
+        />
         <QueryClientProvider client={queryClient}>
             <RouterProvider router={router} />
             {import.meta.env.DEV && (

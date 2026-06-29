@@ -9,7 +9,7 @@ import {
 import { Button } from "../ui/button"
 import { AudioWaveform, RefreshCcwIcon } from "lucide-react"
 
-function EmptyThreads() {
+function EmptyThreads({ refetchFunc }: Readonly<{ refetchFunc: () => void }>) {
     return (
         <div className="w-11/12 rounded-lg border border-border bg-sidebar md:w-1/2">
             <Empty>
@@ -23,7 +23,10 @@ function EmptyThreads() {
                     </EmptyDescription>
                 </EmptyHeader>
                 <EmptyContent>
-                    <Button variant="outline">
+                    <Button
+                        variant="outline"
+                        onClick={refetchFunc}
+                    >
                         <RefreshCcwIcon />
                         Recharger
                     </Button>

@@ -1,18 +1,18 @@
-
 import { useQuery } from "@tanstack/react-query"
-import { allThreadsQueryOptions } from "@/configs/react-query/querysOptions.ts"
+import {
+    connectedThreadQueryOptions,
+} from "@/configs/react-query/querysOptions.ts"
 
-export function useAllThreads() {
-
+export function useConnectedThread() {
     const query = useQuery({
-        ...allThreadsQueryOptions,
+        ...connectedThreadQueryOptions,
     })
 
     return {
-        threadsQueryResult: query.data,
+        threadQueryResult: query.data,
         isLoading: query.isLoading,
         isFetching: query.isFetching, // Utile si on veux montrer un spinner discret lors du background refresh
         error: query.error,
-        refetch: query.refetch
+        refetch: query.refetch,
     }
 }

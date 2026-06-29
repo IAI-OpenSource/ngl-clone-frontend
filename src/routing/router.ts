@@ -19,6 +19,10 @@ export const router = createBrowserRouter([
                 path: CLIENT_ROUTES_MAPPING.THREADS,
                 Component: ThreadsPage,
             },
+            {
+                path: CLIENT_ROUTES_MAPPING.THREADS_MESSAGES,
+                Component: Index,
+            },
         ],
     },
     // {

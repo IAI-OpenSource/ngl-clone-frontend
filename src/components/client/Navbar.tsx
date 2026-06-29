@@ -2,6 +2,7 @@ import NavMenu from "@/components/client/NavMenu.tsx"
 import { items } from "@/data/navbar.tsx"
 import OnlineStatus from "@/components/client/OnlineStatus.tsx"
 import nglLogo from "@/assets/images/ngl-logo.png"
+import { useThreadAuthStore } from "@/stores/threadAuthStore.ts"
 
 function Navbar() {
     return (
@@ -16,9 +17,11 @@ function Navbar() {
 }
 
 function ThreadInfo() {
+    const {isAuthenticated} = useThreadAuthStore()
+
     return (
         <div className="flex items-center justify-around gap-3 rounded-full bg-foreground p-3">
-            <OnlineStatus online={true} />
+            <OnlineStatus online={isAuthenticated} />
             <span className="text-accent hidden md:block">Thread connecté </span>
         </div>
     )

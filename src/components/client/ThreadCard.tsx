@@ -1,19 +1,12 @@
 import type { ReadThread } from "@/types/api/threadsSchemas.ts"
 import { LockKeyhole, KeyRound } from "lucide-react"
+import { extractThreadInitials } from "@/utils/extractor.ts"
 
-function getInitials(name: string) {
-    return name
-        .split(/\s+/)
-        .map((w) => w[0])
-        .join("")
-        .slice(0, 2)
-        .toUpperCase()
-}
 
 export function ThreadCard({ thread }: Readonly<{ thread: ReadThread }>) {
     const { name, description, is_active, is_currently_locked, is_connected, has_password } = thread
 
-    const initials = getInitials(name)
+    const initials = extractThreadInitials(name)
 
     return (
         <div

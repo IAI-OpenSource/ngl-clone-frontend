@@ -18,7 +18,7 @@ export const items: NavBarMenuItemProps[] = [
         icon: <MessageCircleCode />,
     },
     {
-        link: CLIENT_ROUTES_MAPPING.THREADS,
+        link: CLIENT_ROUTES_MAPPING.THREADS_MESSAGES,
         displayText: "Messages",
         icon: <Eye />,
     },

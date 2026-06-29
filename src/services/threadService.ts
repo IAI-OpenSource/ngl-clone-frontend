@@ -1,5 +1,7 @@
 import type {
-    ConnectToThreadResponse, GetAllThreadsResponse,
+    ConnectToThreadResponse,
+    GetAllThreadsResponse,
+    GetConnectedThreadResponse,
     GetThreadResponse,
     ThreadLoginPayload,
 } from "@/types/api/threadsSchemas.ts"
@@ -11,16 +13,28 @@ export async function connectToThread(
 ): Promise<ConnectToThreadResponse> {
     const res = await api.post<ConnectToThreadResponse>(
         `/v1/threads/${threadId}/auth`,
-        authData
+        authData,
+        {
+            errorStrategy: "do-nothing"
+        }
     )
-
     return res.data
 }
 
 export async function getConnectedThread(): Promise<GetThreadResponse> {
     const res = await api.get<GetThreadResponse>(
-        "/v1/threads/actual"
+        "/v1/threads/actual",
+        {
+            errorStrategy: "global"
+        }
     )
+    return res.data
+}
+
+export async function safeGetConnectedThread(): Promise<GetConnectedThreadResponse> {
+    const res = await api.get<GetThreadResponse>("/v1/threads/actual", {
+        errorStrategy: "do-nothing",
+    })
     return res.data
 }
 
@@ -35,6 +49,6 @@ export async function getThreadBySlug(slug: string): Promise<GetThreadResponse> 
 }
 
 export async function getAllThreads(): Promise<GetAllThreadsResponse> {
-    const res = await api.get<GetAllThreadsResponse>("/v1/threads")
+    const res = await api.get<GetAllThreadsResponse>("/v1/threads/")
     return res.data
 }
