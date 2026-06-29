@@ -2,7 +2,7 @@ import AnimatedLoader from "@/components/ui/AnimatedLoader.tsx"
 
 function PageLoader({ message }: Readonly<{ message: string }>) {
     return (
-        <div className="flex flex-col items-center justify-center gap-5">
+        <div className="flex flex-col items-center justify-center gap-8">
             <AnimatedLoader/>
             <span className="text-sm text-muted-foreground animate-pulse">{message}</span>
         </div>
