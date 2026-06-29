@@ -136,11 +136,11 @@ function ThreadConnectForm({ thread }: Readonly<{ thread: ReadThread }>) {
 
             <div className="flex flex-col items-center justify-center gap-3">
                 <div className="rounded-lg bg-background">
-                    <AudioWaveform className="m-5" />
+                    <AudioWaveform className="m-2 md:m-5" />
                 </div>
                 <div className="flex w-full flex-col items-center justify-center">
                     <span className="text-xl font-bold">Connexion à</span>
-                    <span className="font-zen-dots text-2xl font-bold">
+                    <span className="font-zen-dots text-xl md:text-3xl font-bold">
                         {name}
                     </span>
                 </div>
@@ -195,8 +195,8 @@ function ConnectForm({
     return (
         <div className="flex w-full flex-col items-center justify-center">
             <Card className="w-full max-w-sm rounded-2xl">
-                <CardHeader className="pb-4">
-                    <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-accent">
+                <CardHeader>
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent">
                         <Lock className="h-5 w-5 text-muted-foreground" />
                     </div>
 
@@ -204,7 +204,7 @@ function ConnectForm({
                         Thread protégé
                     </CardTitle>
 
-                    <CardDescription className="text-sm leading-relaxed">
+                    <CardDescription className="text-sm hidden md:block leading-relaxed">
                         Ce thread est protégé par un mot de passe. Veuillez le
                         renseigner pour y accéder.
                     </CardDescription>
