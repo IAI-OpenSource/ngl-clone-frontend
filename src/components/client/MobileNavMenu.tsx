@@ -1,12 +1,10 @@
-import Dock from "@/components/Dock.tsx"
+import Dock from "@/components/ui/Dock.tsx"
 import { mobileNavbarItems } from "@/data/navbar.tsx"
-import useTheme from "@/hooks/useTheme.ts"
 
 function MobileNavMenu() {
-    const {toggleTheme} = useTheme()
     return (
             <Dock
-                items={mobileNavbarItems(toggleTheme)}
+                items={mobileNavbarItems}
                 baseItemSize={50}
                 magnification={70}
             />

@@ -20,6 +20,7 @@ import React, {
 import { NavLink } from "react-router"
 
 import "./Dock.css"
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler.tsx"
 
 const MotionNavLink = motion.create(NavLink)
 
@@ -249,6 +250,20 @@ export default function Dock({
                         <DockLabel>{item.label}</DockLabel>
                     </DockItem>
                 ))}
+                <DockItem
+                    mouseX={mouseX}
+                    spring={spring}
+                    distance={distance}
+                    baseItemSize={baseItemSize}
+                    magnification={magnification}
+                    label="Changer le theme"
+                    onClick={() => 1}
+                >
+                    <DockIcon className="w-full h-full ">
+                        <AnimatedThemeToggler className="w-full h-full flex justify-center items-center"/>
+                    </DockIcon>
+                    <DockLabel>Theme</DockLabel>
+                </DockItem>
             </motion.div>
         </motion.div>
     )

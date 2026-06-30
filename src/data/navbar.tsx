@@ -8,9 +8,8 @@ import {
     MessageCircleCode,
     MessageCirclePlus,
     MessagesSquare,
-    Sun,
 } from "lucide-react"
-import type { DockItemData } from "@/components/Dock.tsx"
+import type { DockItemData } from "@/components/ui/Dock.tsx"
 
 export const items: NavBarMenuItemProps[] = [
     {
@@ -29,7 +28,7 @@ export const items: NavBarMenuItemProps[] = [
         icon: <CirclePlus />,
     },
 ]
-export const mobileNavbarItems = (func: () => void): DockItemData[] => [
+export const mobileNavbarItems : DockItemData[] = [
     {
         icon: <Home size={18} />,
         label: "Home",
@@ -49,10 +48,5 @@ export const mobileNavbarItems = (func: () => void): DockItemData[] => [
         icon: <MessageCirclePlus size={18} />,
         label: "Nouveau Message",
         link: CLIENT_ROUTES_MAPPING.NEW_MESSAGE,
-    },
-    {
-        icon: <Sun size={18} />,
-        label: "Changer Theme",
-        onClick: () => func(),
     },
 ]

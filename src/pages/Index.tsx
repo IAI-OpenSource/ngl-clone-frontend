@@ -11,28 +11,35 @@ function Index() {
     const navigate = useNavigate();
 
     return (
-        <div className="flex gap-3 items-center justify-center">
-            <Button variant="default" onClick={() => {
-                toast("Navigation vers le page Admin", {
-                    duration: 1500,
-                    position: "top-right",
-                    icon: <CircleIcon />,
-                })
-                navigate(CLIENT_ROUTES_MAPPING.HOME);
-            }}>
+        <div className="flex items-center justify-center gap-3">
+            <Button
+                variant="default"
+                onClick={() => {
+                    toast("Navigation vers le page Admin", {
+                        duration: 1500,
+                        position: "top-right",
+                        icon: <CircleIcon />,
+                    })
+                    navigate(CLIENT_ROUTES_MAPPING.HOME)
+                }}
+            >
                 Test Vers Admin
             </Button>
-            <Button variant="outline" onClick={() => {
-                toast(`Changement de thème`, {
-                    duration: 1000,
-                    position: 'top-right',
-                    icon: <CircleIcon/>,
-                });
-                toggleTheme()
-            }}>
+            <Button
+                variant="outline"
+                onClick={() => {
+                    toast(`Changement de thème`, {
+                        duration: 1000,
+                        position: "top-right",
+                        icon: <CircleIcon />,
+                    })
+                    toggleTheme()
+                }}
+            >
                 Test Theme (Actuel: jsp)
             </Button>
             {/*<Toaster />*/}
+            {/*<CardFt message="Premier test" />*/}
         </div>
     )
 
