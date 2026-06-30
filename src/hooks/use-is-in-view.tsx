@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useInView, type UseInViewOptions } from 'motion/react';
 
-interface UseIsInViewOptions {
+export interface UseIsInViewOptions {
   inView?: boolean;
   inViewOnce?: boolean;
   inViewMargin?: UseInViewOptions['margin'];
 }
 
-function useIsInView<T extends HTMLElement = HTMLElement>(
+export default function useIsInView<T extends HTMLElement = HTMLElement>(
   ref: React.Ref<T>,
   options: UseIsInViewOptions = {},
 ) {
@@ -22,4 +22,3 @@ function useIsInView<T extends HTMLElement = HTMLElement>(
   return { ref: localRef, isInView };
 }
 
-export { useIsInView, type UseIsInViewOptions };

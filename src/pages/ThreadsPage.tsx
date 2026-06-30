@@ -12,7 +12,7 @@ import {
 
 import ThreadConnectForm from "@/components/client/ThreadConnectForm.tsx"
 import { useState } from "react"
-import { Button } from "@/components/ui/button.tsx"
+import Button  from "@/components/ui/button.tsx"
 import { RefreshCcwIcon } from "lucide-react"
 import { useToast } from "@/hooks/useToasts.tsx"
 import { rearrangeThreads } from "@/utils/extractor.ts"

@@ -1,6 +1,6 @@
 import { NavLink } from "react-router"
 import type { NavBarMenuItemProps } from "@/types/navbar.ts"
-import { Button } from "@/components/ui/button.tsx"
+import Button from "@/components/ui/button.tsx"
 
 function NavMenuItem(props : Readonly<NavBarMenuItemProps>) {
     return (

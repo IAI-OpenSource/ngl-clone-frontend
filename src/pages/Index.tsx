@@ -1,10 +1,10 @@
-import {Button} from "@/components/ui/button.tsx";
 import toast from "react-hot-toast";
 
 import useTheme from "@/hooks/useTheme.ts";
 import {useNavigate} from "react-router";
 import {CLIENT_ROUTES_MAPPING} from "@/routing/paths-mapping.ts";
 import { CircleIcon } from "lucide-react"
+import Button from "@/components/ui/button";
 
 function Index() {
     const {toggleTheme} = useTheme();

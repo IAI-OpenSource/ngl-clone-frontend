@@ -6,7 +6,7 @@ import {
     EmptyMedia,
     EmptyTitle,
 } from "@/components/ui/empty.tsx"
-import { Button } from "../ui/button"
+import Button  from "../ui/button"
 import { AudioWaveform, RefreshCcwIcon } from "lucide-react"
 
 function EmptyThreads({ refetchFunc }: Readonly<{ refetchFunc: () => void }>) {
