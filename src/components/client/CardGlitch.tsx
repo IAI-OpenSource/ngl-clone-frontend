@@ -42,7 +42,7 @@ export default function CardGlitch({ message }: Readonly<{ message: ReadMessage 
     const StatusIcon = status.Icon
 
     return (
-        <div className="glitch-wrap">
+        <div className="glitch-wrap cursor-pointer">
             <div className="glitch-back" aria-hidden="true" />
             <div className="glitch-front">
                 <div className="glitch-top">

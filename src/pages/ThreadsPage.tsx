@@ -7,7 +7,8 @@ import {
     DialogContent,
     DialogHeader,
     DialogTitle,
-    Dialog
+    Dialog,
+    DialogTrigger,
 } from "@/components/ui/dialog.tsx"
 
 import ThreadConnectForm from "@/components/client/ThreadConnectForm.tsx"
@@ -47,6 +48,7 @@ function ThreadsPage() {
                     if (!open) setActiveThread(null)
                 }}
             >
+                <DialogTrigger></DialogTrigger>
                 <DialogContent className="bg-accent sm:max-w-lg">
                     <DialogHeader>
                         <DialogTitle className="text-xl">
@@ -61,29 +63,27 @@ function ThreadsPage() {
 
             <div className="flex w-full flex-col items-center justify-center px-4 pt-8 pb-24 xl:pt-0 xl:pb-0">
                 <div className="flex w-full flex-wrap items-center justify-center gap-3">
-                    {threadsToRender.map((thread) =>
-                        {
-                            const isConnected = thread.is_connected
+                    {threadsToRender.map((thread) => {
+                        const isConnected = thread.is_connected
 
-                            const handleClick = () => {
-                                if (isConnected){
-                                    infoToast(
-                                        "T'es déja connecté à ce thread poto"
-                                    )
-                                    return
-                                }
-                                setActiveThread(thread)
+                        const handleClick = () => {
+                            if (isConnected) {
+                                infoToast("T'es déja connecté à ce thread poto")
+                                return
                             }
+                            setActiveThread(thread)
+                        }
 
-                            return  <button
+                        return (
+                            <button
                                 className="w-11/12 md:w-5/12"
                                 key={thread.id}
                                 onClick={handleClick}
                             >
-                                <ThreadCard thread={thread}/>
+                                <ThreadCard thread={thread} />
                             </button>
-                        }
-                    )}
+                        )
+                    })}
                 </div>
 
                 <Button

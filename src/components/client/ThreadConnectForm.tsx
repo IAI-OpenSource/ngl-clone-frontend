@@ -30,8 +30,7 @@ import { CLIENT_ROUTES_MAPPING } from "@/routing/paths-mapping.ts"
 import { useThreadAuthStore } from "@/stores/threadAuthStore.ts"
 
 function ThreadConnectForm({ thread }: Readonly<{ thread: ReadThread }>) {
-    const { isLoading, threadQueryResult } = useSafeConnectedThread()
-    const {setAuthenticate} = useThreadAuthStore()
+
     const [connectFormError, setConnectFormError] = useState("Mot de passe requis")
 
     const [isConnecting, setIsConnecting] = useState(false)
@@ -39,6 +38,10 @@ function ThreadConnectForm({ thread }: Readonly<{ thread: ReadThread }>) {
     const [password, setPassword] = useState("")
 
     const [alertDialogIsOpen, setAlertDialogIsOpen] = useState(false)
+
+    const { isLoading, threadQueryResult } = useSafeConnectedThread()
+    
+    const {setAuthenticate} = useThreadAuthStore()
 
     const {loadingToast, successToast, errorToast} = useToast()
 
@@ -227,6 +230,7 @@ function ConnectForm({
                                 onChange={(e) =>
                                     handlePasswordChange(e.target.value)
                                 }
+                                aria-label="Mot de passe du thread"
                                 placeholder="Mot de passe du thread"
                                 autoComplete="current-password"
                                 className={cn(

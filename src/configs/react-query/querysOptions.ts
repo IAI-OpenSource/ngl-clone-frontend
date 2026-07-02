@@ -29,5 +29,6 @@ export const safeConnectedThreadQueryOptions = {
     queryKey: TANSTACK_QUERY_KEYS.CONNECTED_THREAD,
     queryFn: async () => {
         return await safeGetConnectedThread()
-    }
+    },
+    retry: false
 }

@@ -54,7 +54,115 @@ const MOCK_MESSAGES: ReadMessage[] = [
         mentionned_members: [],
     },
     {
-        id: "4",
+        id: "4q",
+        thread_id: "t1",
+        content:
+            "L'examen de Cloud Computing est reporté à jeudi, ça vient de tomber sur l'affichage du secrétariat.",
+        wa_message_id: "wa_4",
+        wa_status: "failed",
+        wa_forwarded_at: null,
+        is_hidden: false,
+        hidden_reason: null,
+        created_at: "2026-06-30T18:22:00Z",
+        mentionned_members: [
+            {
+                id: "m2",
+                display_name: "TC2-A",
+                wa_jid: "",
+                wa_name: null,
+                phone_number: null,
+                avatar_url: null,
+                is_active: false,
+                created_at: "",
+                updated_at: "",
+            },
+            {
+                id: "m3",
+                display_name: "Délégué",
+                wa_jid: "",
+                wa_name: null,
+                phone_number: null,
+                avatar_url: null,
+                is_active: false,
+                created_at: "",
+                updated_at: "",
+            },
+        ],
+    },
+    {
+        id: "4x",
+        thread_id: "t1",
+        content:
+            "L'examen de Cloud Computing est reporté à jeudi, ça vient de tomber sur l'affichage du secrétariat.",
+        wa_message_id: "wa_4",
+        wa_status: "failed",
+        wa_forwarded_at: null,
+        is_hidden: false,
+        hidden_reason: null,
+        created_at: "2026-06-30T18:22:00Z",
+        mentionned_members: [
+            {
+                id: "m2",
+                display_name: "TC2-A",
+                wa_jid: "",
+                wa_name: null,
+                phone_number: null,
+                avatar_url: null,
+                is_active: false,
+                created_at: "",
+                updated_at: "",
+            },
+            {
+                id: "m3",
+                display_name: "Délégué",
+                wa_jid: "",
+                wa_name: null,
+                phone_number: null,
+                avatar_url: null,
+                is_active: false,
+                created_at: "",
+                updated_at: "",
+            },
+        ],
+    },
+    {
+        id: "4z",
+        thread_id: "t1",
+        content:
+            "L'examen de Cloud Computing est reporté à jeudi, ça vient de tomber sur l'affichage du secrétariat.",
+        wa_message_id: "wa_4",
+        wa_status: "failed",
+        wa_forwarded_at: null,
+        is_hidden: false,
+        hidden_reason: null,
+        created_at: "2026-06-30T18:22:00Z",
+        mentionned_members: [
+            {
+                id: "m2",
+                display_name: "TC2-A",
+                wa_jid: "",
+                wa_name: null,
+                phone_number: null,
+                avatar_url: null,
+                is_active: false,
+                created_at: "",
+                updated_at: "",
+            },
+            {
+                id: "m3",
+                display_name: "Délégué",
+                wa_jid: "",
+                wa_name: null,
+                phone_number: null,
+                avatar_url: null,
+                is_active: false,
+                created_at: "",
+                updated_at: "",
+            },
+        ],
+    },
+    {
+        id: "9",
         thread_id: "t1",
         content:
             "L'examen de Cloud Computing est reporté à jeudi, ça vient de tomber sur l'affichage du secrétariat.",
@@ -129,11 +237,15 @@ const MOCK_MESSAGES: ReadMessage[] = [
 
 function MessagesPage() {
     return (
-        <div className="xl:pb-0 gap-10 flex w-full flex-wrap items-stretch justify-center px-4 pt-8 pb-24 xl:pt-0 ">
+        <div className="flex w-full flex-wrap items-stretch justify-center gap-5 md:gap-10 px-4 pt-8 pb-24 xl:pt-10 xl:pb-0">
             {MOCK_MESSAGES.map((message) => (
-                <div key={message.id} className="w-11/12 md:w-5/12">
+                <button
+                    className="w-11/12 [all:unset] md:w-5/12"
+                    key={message.id}
+                    onClick={() => {console.log(`Click sur ${message.id}`)}}
+                >
                     <CardGlitch message={message} />
-                </div>
+                </button>
             ))}
         </div>
     )
