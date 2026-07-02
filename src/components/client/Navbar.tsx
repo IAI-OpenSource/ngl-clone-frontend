@@ -27,7 +27,7 @@ function ThreadInfo() {
     return (
         <div className="flex items-center justify-around gap-3 rounded-full bg-foreground p-3">
             <OnlineStatus online={isAuthenticated} />
-            <span className="text-accent hidden md:block">Thread connecté </span>
+            <span className="text-accent font-space-grotesk hidden md:block">Thread connecté</span>
         </div>
     )
 }

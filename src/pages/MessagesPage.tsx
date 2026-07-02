@@ -1,5 +1,6 @@
 import type { ReadMessage } from "@/types/api/threadsSchemas.ts"
 import CardGlitch from "@/components/client/CardGlitch.tsx"
+import MessagesPageHeader from "@/components/client/MessagesPageHeader.tsx"
 
 
 const MOCK_MESSAGES: ReadMessage[] = [
@@ -237,16 +238,21 @@ const MOCK_MESSAGES: ReadMessage[] = [
 
 function MessagesPage() {
     return (
-        <div className="flex w-full flex-wrap items-stretch justify-center gap-5 md:gap-10 px-4 pt-8 pb-24 xl:pt-10 xl:pb-0">
-            {MOCK_MESSAGES.map((message) => (
-                <button
-                    className="w-11/12 [all:unset] md:w-5/12"
-                    key={message.id}
-                    onClick={() => {console.log(`Click sur ${message.id}`)}}
-                >
-                    <CardGlitch message={message} />
-                </button>
-            ))}
+        <div className="flex flex-col items-center justify-center gap-5 px-4 pt-8 pb-24 xl:pt-10 xl:pb-0">
+            <MessagesPageHeader threadName="Thread de testtttttts"/>
+            <div className="flex flex-wrap items-stretch justify-center gap-5 md:gap-10">
+                {MOCK_MESSAGES.map((message) => (
+                    <button
+                        className="w-11/12 [all:unset] md:w-5/12"
+                        key={message.id}
+                        onClick={() => {
+                            console.log(`Click sur ${message.id}`)
+                        }}
+                    >
+                        <CardGlitch message={message} />
+                    </button>
+                ))}
+            </div>
         </div>
     )
 }

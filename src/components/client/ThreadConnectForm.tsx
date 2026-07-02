@@ -5,7 +5,7 @@ import {
 } from "@/types/api/threadsSchemas.ts"
 import { AudioWaveform, Eye, EyeOff, Lock, X } from "lucide-react"
 import { Spinner } from "@/components/ui/spinner.tsx"
-import { useSafeConnectedThread } from "@/hooks/useSafeConnectedThread.ts"
+import { useSafeConnectedThread } from "@/hooks/queries/useSafeConnectedThread.ts"
 import { isSuccessResponse } from "@/utils/apiResponseExtractor.ts"
 import Button from "@/components/ui/button.tsx"
 import { Input } from "@/components/ui/input.tsx"
@@ -40,7 +40,7 @@ function ThreadConnectForm({ thread }: Readonly<{ thread: ReadThread }>) {
     const [alertDialogIsOpen, setAlertDialogIsOpen] = useState(false)
 
     const { isLoading, threadQueryResult } = useSafeConnectedThread()
-    
+
     const {setAuthenticate} = useThreadAuthStore()
 
     const {loadingToast, successToast, errorToast} = useToast()

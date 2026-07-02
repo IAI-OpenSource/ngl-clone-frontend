@@ -1,6 +1,6 @@
 import { ThreadCard } from "@/components/client/ThreadCard.tsx"
 import EmptyThreads from "@/components/client/EmptyThreads.tsx"
-import { useAllThreads } from "@/hooks/useAllThreads.ts"
+import { useAllThreads } from "@/hooks/queries/useAllThreads.ts"
 import PageLoader from "@/components/client/PageLoader.tsx"
 import type { ReadThread } from "@/types/api/threadsSchemas.ts"
 import {
