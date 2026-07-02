@@ -37,3 +37,7 @@ export type GetThreadMembersResponse = CommonApiBaseResponse<components['schemas
 export type GetThreadMessagesResponse = CommonApiBaseResponse<
     components["schemas"]["PaginatedMessagesResponse"]
 >
+
+export type ReadMessage = components["schemas"]["ReadMessage"]
+
+export type WaSentStatus = ReadMessage["wa_status"]

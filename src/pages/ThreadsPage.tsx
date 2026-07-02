@@ -15,7 +15,7 @@ import { useState } from "react"
 import Button  from "@/components/ui/button.tsx"
 import { RefreshCcwIcon } from "lucide-react"
 import { useToast } from "@/hooks/useToasts.tsx"
-import { rearrangeThreads } from "@/utils/extractor.ts"
+import { rearrangeThreads } from "@/utils/threadsUtils.ts"
 
 function ThreadsPage() {
     const { threadsQueryResult, isLoading, refetch } = useAllThreads()

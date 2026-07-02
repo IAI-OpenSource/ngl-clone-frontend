@@ -5,6 +5,7 @@ import { CLIENT_ROUTES_MAPPING, PATHS_MAPPING } from "./paths-mapping.ts"
 import ClientLayout from "@/layouts/ClientLayout.tsx"
 import Index from "@/pages/Index.tsx"
 import ThreadsPage from "@/pages/ThreadsPage.tsx"
+import MessagesPage from "@/pages/MessagesPage.tsx"
 
 export const router = createBrowserRouter([
     {
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: CLIENT_ROUTES_MAPPING.THREADS_MESSAGES,
-                Component: Index,
+                Component: MessagesPage,
             },
         ],
     },

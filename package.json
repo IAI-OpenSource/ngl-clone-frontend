@@ -14,7 +14,11 @@
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
     "@fontsource-variable/roboto": "^5.2.10",
+    "@fontsource/caveat": "^5.2.8",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
     "@fontsource/share-tech": "^5.2.8",
+    "@fontsource/space-grotesk": "^5.2.10",
     "@fontsource/zen-dots": "^5.2.8",
     "@gsap/react": "^2.1.2",
     "@tailwindcss/vite": "^4",
@@ -56,6 +60,7 @@
     "prettier-plugin-tailwindcss": "^0.8.0",
     "typescript": "~6",
     "typescript-eslint": "^8",
-    "vite": "^8"
+    "vite": "^8",
+    "vite-plugin-svgr": "^5.2.0"
   }
 }

@@ -1,6 +1,6 @@
 import type { ReadThread } from "@/types/api/threadsSchemas.ts"
 import { LockKeyhole, KeyRound } from "lucide-react"
-import { extractThreadInitials } from "@/utils/extractor.ts"
+import { extractThreadInitials } from "@/utils/threadsUtils.ts"
 
 
 export function ThreadCard({ thread }: Readonly<{ thread: ReadThread }>) {
