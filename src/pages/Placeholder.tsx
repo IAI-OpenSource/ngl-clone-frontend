@@ -1,4 +1,4 @@
-import {Button} from "@/components/ui/button.tsx";
+import Button from "@/components/ui/button.tsx";
 import {useLocation} from "react-router";
 import useTheme from "@/hooks/useTheme.ts";
 import { PATHS_MAPPING, CLIENT_ROUTES_MAPPING} from "@/routing/paths-mapping.ts";

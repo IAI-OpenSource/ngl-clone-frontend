@@ -49,6 +49,26 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+
+    /* les variables pour las glitch card des messages */
+    --glitch-bg-back-start: #FF6F59;
+    --glitch-bg-back-end: #FFC857;
+    --glitch-bg-front: #FBF8F0;
+    --glitch-border: #1B2340;
+    --glitch-text-primary: #1B2340;
+    --glitch-eyebrow-bg: #C9E4D8;
+    --glitch-eyebrow-text: #1B2340;
+    --glitch-hidden-bg: #EFE4E2;
+    --glitch-hidden-border: #C4453A;
+    --glitch-hidden-text: #7A3630;
+    --glitch-chip-bg: #1B2340;
+    --glitch-chip-text: #F6F1E6;
+    --glitch-foot-text: #8A836F;
+    --glitch-foot-border: rgba(27, 35, 64, 0.15);
+    --glitch-shadow: rgba(27, 35, 64, 0.08);
+    --glitch-status-pending: #B8862B;
+    --glitch-status-success: #2F8F6B;
+    --glitch-status-error: #C4453A;
 }
 
 .dark {
@@ -83,6 +103,26 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+
+    /* les variables pour las glitch card des messages */
+    --glitch-bg-back-start: #E8563F;
+    --glitch-bg-back-end: #E8A93D;
+    --glitch-bg-front: #151A2E;
+    --glitch-border: #EDE6D6;
+    --glitch-text-primary: #F3EFE4;
+    --glitch-eyebrow-bg: #2C4A3E;
+    --glitch-eyebrow-text: #BFE6D3;
+    --glitch-hidden-bg: #3A2422;
+    --glitch-hidden-border: #E2695D;
+    --glitch-hidden-text: #F0B8AE;
+    --glitch-chip-bg: #F3EFE4;
+    --glitch-chip-text: #151A2E;
+    --glitch-foot-text: #9C9686;
+    --glitch-foot-border: rgba(243, 239, 228, 0.15);
+    --glitch-shadow: rgba(0, 0, 0, 0.35);
+    --glitch-status-pending: #E3A94C;
+    --glitch-status-success: #4FBE93;
+    --glitch-status-error: #E2695D;
 }
 
 @theme inline {

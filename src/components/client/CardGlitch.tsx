@@ -16,11 +16,11 @@ interface MapOpbject {
     color: string
 }
 const STATUS_MAP: Record<WaSentStatus, MapOpbject>= {
-    pending: { label: "En Attente", Icon: Clock, color: "#B8862B" },
-    delivered: { label: "Livré", Icon: CheckCheck, color: "#2F8F6B" },
-    sent: { label: "Envoyé", Icon: CheckCheck, color: "#2F8F6B" },
-    failed: { label: "Echec", Icon: AlertTriangle, color: "#C4453A" },
-    queued: { label: "En cours", Icon: AlertTriangle, color: "#C4453A" },
+    pending: { label: "En Attente", Icon: Clock, color: "var(--glitch-status-pending)" },
+    delivered: { label: "Livré", Icon: CheckCheck, color: "var(--glitch-status-success)" },
+    sent: { label: "Envoyé", Icon: CheckCheck, color: "var(--glitch-status-success)" },
+    failed: { label: "Echec", Icon: AlertTriangle, color: "var(--glitch-status-error)" },
+    queued: { label: "En cours", Icon: AlertTriangle, color: "var(--glitch-status-error)" },
 }
 
 import WhatsAppIcon from "@/assets/svg/whatsapp.svg?react"

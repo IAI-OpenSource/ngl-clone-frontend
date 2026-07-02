@@ -129,7 +129,7 @@ const MOCK_MESSAGES: ReadMessage[] = [
 
 function MessagesPage() {
     return (
-        <div className="xl:pb-0 gap-10 flex w-full flex-wrap items-center justify-center px-4 pt-8 pb-24 xl:pt-0 ">
+        <div className="xl:pb-0 gap-10 flex w-full flex-wrap items-stretch justify-center px-4 pt-8 pb-24 xl:pt-0 ">
             {MOCK_MESSAGES.map((message) => (
                 <div key={message.id} className="w-11/12 md:w-5/12">
                     <CardGlitch message={message} />
