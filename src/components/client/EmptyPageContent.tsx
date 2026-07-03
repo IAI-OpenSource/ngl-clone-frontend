@@ -11,7 +11,7 @@ interface EmptyPageProps {
     additionalContent?: ReactNode
 }
 
-function EmptyPage({
+function EmptyPageContent({
     refetchFunc,
     emptyTitleMessage,
     emptyDescriptionMessage,
@@ -40,4 +40,4 @@ function EmptyPage({
     )
 }
 
-export default EmptyPage
+export default EmptyPageContent

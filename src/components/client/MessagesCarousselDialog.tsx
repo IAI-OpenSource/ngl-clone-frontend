@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import type { ReadMessage } from "@/types/api/messagesApiSchemas.ts"
 
 interface MessagesCarousselDialogProps {
-    threadName: string
+    threadName: string | null | undefined
     activeMessage: ReadMessage | null
     closeDialog: () => void
     hasNext: boolean

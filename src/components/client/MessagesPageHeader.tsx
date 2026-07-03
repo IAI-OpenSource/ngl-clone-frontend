@@ -1,7 +1,11 @@
 import { MessageCircle } from "lucide-react"
+import { useConnectedThread } from "@/hooks/queries/useConnectedThread.ts"
 
 
-function MessagesPageHeader({ threadName }: Readonly<{ threadName: string }>) {
+function MessagesPageHeader() {
+    const {threadQueryResult} = useConnectedThread()
+
+    const threadName = threadQueryResult?.result?.name
     return (
         <div className="flex w-full items-center justify-between rounded-lg py-3 md:w-5/6 ">
             <div className="flex items-center justify-between">

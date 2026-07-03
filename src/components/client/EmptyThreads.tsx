@@ -1,9 +1,9 @@
 import { AudioWaveform } from "lucide-react"
-import EmptyPage from "@/components/client/EmptyPage.tsx"
+import EmptyPageContent from "@/components/client/EmptyPageContent.tsx"
 
 function EmptyThreads({ refetchFunc }: Readonly<{ refetchFunc: () => void }>) {
     return (
-        <EmptyPage
+        <EmptyPageContent
             refetchFunc={refetchFunc}
             emptyTitleMessage="Aucun Thread Disponible"
             emptyDescriptionMessage="Aucun thread disponible pour l'instant."

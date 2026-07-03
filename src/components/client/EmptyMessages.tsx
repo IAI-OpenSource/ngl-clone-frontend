@@ -1,10 +1,10 @@
-import EmptyPage from "@/components/client/EmptyPage.tsx"
+import EmptyPageContent from "@/components/client/EmptyPageContent.tsx"
 import { MessageCircleDashed } from "lucide-react"
 import Button from "@/components/ui/button";
 
 function EmptyMessages({refetchFunc}: Readonly<{ refetchFunc: () => void }>) {
     return (
-        <EmptyPage
+        <EmptyPageContent
             refetchFunc={refetchFunc}
             emptyTitleMessage="Aucun Message Disponible"
             emptyDescriptionMessage="Aucun message disponible pour l'instant."

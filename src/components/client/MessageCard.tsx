@@ -31,7 +31,7 @@ const STATUS_MAP: Record<WaSentStatus, MapOpbject>= {
 
 
 
-export default function MessageCard({ message }: Readonly<{ message: ReadMessage }>) {
+export default function MessageCard({ message, threadName }: Readonly<{ message: ReadMessage, threadName: string | null | undefined }>) {
     const status = STATUS_MAP[message.wa_status] ?? STATUS_MAP.pending
     const StatusIcon = status.Icon
 
@@ -89,7 +89,7 @@ export default function MessageCard({ message }: Readonly<{ message: ReadMessage
 
                 <div className="glitch-foot">
                     <span>{timeAgo(message.created_at)}</span>
-                    <span className="glitch-id">#{message.id.slice(0, 8)}</span>
+                    <span className="glitch-id">{threadName}</span>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ import SVGd from "@/assets/svg/rb.svg?react"
 import { calculateMessageFontSize } from "@/utils/globalUtils.ts"
 
 export interface ThreadMessageCardProps {
-    threadName: string
+    threadName: string | null | undefined
     text: string
     timestamp: string
     mentionedNames?: string[]

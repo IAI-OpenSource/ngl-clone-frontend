@@ -56,6 +56,16 @@ export function timeAgo(dateIso: string) {
     return `il y a ${Math.round(diffH / 24)} j`
 }
 
+
+/**
+ * Fonction de pause pour les fonctions asynchrones
+ * j'ai ajouté juste pour simuler des délais de réponse dans les tests pour voir comment l'application réagit
+ * @param seconds le nombre de secondes à sleep
+ */
+export const sleep = (seconds: number): Promise<void> => {
+    return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+};
+
 interface FontSizeResult {
     /** Valeur prête à être injectée dans style={{ fontSize }} */
     fontSize: string
