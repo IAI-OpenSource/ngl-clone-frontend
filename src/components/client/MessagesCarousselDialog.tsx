@@ -35,9 +35,9 @@ function MessagesCarousselDialog({
             <DialogTrigger></DialogTrigger>
             <DialogContent className="w-full sm:max-w-7xl">
                 <div className="flex w-full flex-row items-center justify-between gap-4">
-                    <Button variant="default" disabled={!hasPrev} onClick={goToPrev}>
+                    <Button variant="outline" disabled={!hasPrev} onClick={goToPrev}>
                         <ArrowLeft/>
-                        Précedent
+                        <span className="hidden md:block">Précedent</span>
                     </Button>
                     {activeMessage === null ? (
                         <div>Rien a afficher poto</div>
@@ -53,7 +53,7 @@ function MessagesCarousselDialog({
 
                     )}
                     <Button variant="default" disabled={!hasNext} onClick={goToNext}>
-                        Suivant
+                        <span className="hidden md:block">Suivant</span>
                         <ArrowRight />
                     </Button>
                 </div>

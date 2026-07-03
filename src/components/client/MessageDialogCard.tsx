@@ -2,13 +2,13 @@ import SVGa from "@/assets/svg/lb.svg?react"
 import SVGb from "@/assets/svg/lt.svg?react"
 import SVGc from "@/assets/svg/rt.svg?react"
 import SVGd from "@/assets/svg/rb.svg?react"
+import { calculateMessageFontSize } from "@/utils/globalUtils.ts"
 
 export interface ThreadMessageCardProps {
     threadName: string
     text: string
     timestamp: string
     mentionedNames?: string[]
-    fontSize?: number
     className?: string
 }
 
@@ -17,11 +17,9 @@ export function MessageDialogCard({
     text,
     timestamp,
     mentionedNames,
-    fontSize,
-    className = "",
 }: Readonly<ThreadMessageCardProps>) {
     const hasMentions = !!mentionedNames?.length
-
+    const {mobile} = calculateMessageFontSize(text.length)
     return (
         <div
             className={[
@@ -32,7 +30,6 @@ export function MessageDialogCard({
                 "bg-(--dia-msg-card-surface)",
                 "font-(family-name:--dia-msg-card-font-sans)",
                 "shadow-[0_0_0_1px_var(--dia-msg-card-shadow-ring),0_24px_50px_-16px_var(--dia-msg-card-shadow-purple),0_10px_22px_-8px_var(--dia-msg-card-shadow-pink)]",
-                className,
             ].join(" ")}
         >
             <div
@@ -81,10 +78,8 @@ export function MessageDialogCard({
                         </div>
                     )}
                     <div
-                        className="rounded-xl bg-(--dia-msg-card-ink) px-5 py-4 text-[22px] leading-[1.4] font-semibold tracking-[-0.3px] wrap-break-word text-(--dia-msg-card-cream) sm:px-6 sm:py-6 sm:text-[28px] md:p-8 md:text-[38px]"
-                        style={
-                            fontSize ? { fontSize: `${fontSize}px` } : undefined
-                        }
+                        className="rounded-xl bg-(--dia-msg-card-ink) px-5 py-4 leading-[1.4] font-semibold tracking-[-0.3px] wrap-break-word text-(--dia-msg-card-cream) sm:px-6 sm:py-6 md:p-8"
+                        style={{fontSize: `${mobile}px`}}
                     >
                         {text}
                     </div>

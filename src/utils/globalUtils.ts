@@ -55,3 +55,43 @@ export function timeAgo(dateIso: string) {
     if (diffH < 24) return `il y a ${diffH} h`
     return `il y a ${Math.round(diffH / 24)} j`
 }
+
+/**
+ * Calcule dynamiquement la taille de police du message en fonction de sa longueur.
+ *
+ * Breakpoints responsive :
+ * - Mobile (default): de 16px (500 chars) à 24px (court)
+ * - SM (640px+): de 20px (500 chars) à 32px (court)
+ * - MD (768px+): de 32px (500 chars) à 44px (court)
+ *
+ * @param textLength - Nombre de caractères du message (0-500)
+ * @returns Objet avec les classes Tailwind responsives pour la taille
+ */
+export function calculateMessageFontSize(textLength: number) {
+    // Clamper à [0, 500]
+    const length = Math.max(0, Math.min(500, textLength));
+
+    // Interpolation linéaire pour chaque breakpoint
+    // Plus le texte est long, plus la taille est petite
+    const mobileMin = 16;
+    const mobileMax = 24;
+    const mobileFontSize = mobileMax - (length / 500) * (mobileMax - mobileMin);
+
+    const smMin = 20;
+    const smMax = 32;
+    const smFontSize = smMax - (length / 500) * (smMax - smMin);
+
+    const mdMin = 32;
+    const mdMax = 44;
+    const mdFontSize = mdMax - (length / 500) * (mdMax - mdMin);
+
+    return {
+        /** Classe Tailwind dynamique pour appliquer les font-sizes responsives */
+        className: `text-[${mobileFontSize.toFixed(1)}px] sm:text-[${smFontSize.toFixed(1)}px] md:text-[${mdFontSize.toFixed(1)}px]`,
+
+        /** Valeurs brutes (px) pour chaque breakpoint, au cas où on veux les utiliser ailleurs */
+        mobile: Math.round(mobileFontSize),
+        sm: Math.round(smFontSize),
+        md: Math.round(mdFontSize),
+    };
+}
