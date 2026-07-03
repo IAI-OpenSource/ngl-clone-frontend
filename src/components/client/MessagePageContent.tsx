@@ -5,7 +5,8 @@ import { useMessages } from "@/hooks/queries/useMessages.ts"
 import MessageCard from "@/components/client/MessageCard.tsx"
 import PageLoader from "@/components/client/PageLoader.tsx"
 import { useConnectedThread } from "@/hooks/queries/useConnectedThread.ts"
-import Button  from "@/components/ui/button";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll.ts"
+import { Spinner } from "@/components/ui/spinner.tsx"
 
 function MessagePageContent() {
     const [activeMessageIndex, setActiveMessageIndex] = useState<number>(-1)
@@ -18,11 +19,18 @@ function MessagePageContent() {
 
     const {
         messagesQueryResult,
-        hasNextPage: _hasNextPage,
+        hasNextPage,
         fetchNextPage,
+        isFetchingNextPage,
         isLoading,
         refetch,
     } = useMessages()
+
+    const loadMoreRef = useInfiniteScroll({
+        hasNextPage,
+        isFetchingNextPage,
+        fetchNextPage,
+    })
 
     const messages = useMemo(() => {
         return (
@@ -87,15 +95,20 @@ function MessagePageContent() {
                 goToNext={goToNext}
                 goToPrev={goToPrev}
             />
-            <div className="flex w-full flex-1 flex-wrap items-center justify-center gap-5 md:gap-10">
-                {messageCards ?? <EmptyMessages refetchFunc={refetch} />}
-                {_hasNextPage && (
-                    <Button
-                        className="bg-primary text-primary-foreground hover:bg-primary/90"
-                        onClick={() => fetchNextPage()}
+            <div className="flex w-full flex-1 flex-col items-center gap-5 md:gap-10">
+                <div className="flex w-full flex-wrap items-center justify-center gap-5 md:gap-10">
+                    {messageCards ?? <EmptyMessages refetchFunc={refetch} />}
+                </div>
+                {hasNextPage && (
+                    <div
+                        ref={loadMoreRef}
+                        aria-hidden         // Pour éviter que le div soit focusable par les lecteurs d'écran, car il n'a pas de contenu interactif
+                        className="flex w-full justify-center py-6"
                     >
-                        Charger plus de messages
-                    </Button>
+                        {isFetchingNextPage && (
+                            <Spinner className="size-6 text-muted-foreground" />
+                        )}
+                    </div>
                 )}
             </div>
         </>

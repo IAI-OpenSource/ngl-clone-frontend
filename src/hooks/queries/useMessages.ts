@@ -9,6 +9,7 @@ export const useMessages = () => {
         messagesQueryResult: query.data,
         isLoading: query.isLoading,
         isFetching: query.isFetching,
+        isFetchingNextPage: query.isFetchingNextPage,
         error: query.error,
         refetch: query.refetch,
         fetchNextPage: query.fetchNextPage,
