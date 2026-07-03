@@ -3,7 +3,7 @@ import MessagePageContent from "@/components/client/MessagePageContent.tsx"
 
 function MessagesPage() {
     return (
-        <div className="flex min-h-full w-full flex-col self-stretch gap-5 px-4 pt-8 pb-24 xl:pt-10 xl:pb-0">
+        <div className="flex min-h-full w-full flex-col self-stretch gap-5 px-4 pt-8 pb-24 xl:pt-10 ">
             <div className="flex w-full justify-center">
                 <MessagesPageHeader />
             </div>

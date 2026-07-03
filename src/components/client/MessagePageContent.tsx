@@ -5,6 +5,7 @@ import { useMessages } from "@/hooks/queries/useMessages.ts"
 import MessageCard from "@/components/client/MessageCard.tsx"
 import PageLoader from "@/components/client/PageLoader.tsx"
 import { useConnectedThread } from "@/hooks/queries/useConnectedThread.ts"
+import Button  from "@/components/ui/button";
 
 function MessagePageContent() {
     const [activeMessageIndex, setActiveMessageIndex] = useState<number>(-1)
@@ -15,9 +16,21 @@ function MessagePageContent() {
     // useCallback : référence stable — évite un re-render de MessagesCarousselDialog à chaque render
     const closeDialog = useCallback(() => setActiveMessageIndex(-1), [])
 
-    const { messagesQueryResult, hasNextPage: _hasNextPage, isLoading, refetch } = useMessages()
+    const {
+        messagesQueryResult,
+        hasNextPage: _hasNextPage,
+        fetchNextPage,
+        isLoading,
+        refetch,
+    } = useMessages()
 
-    const messages = messagesQueryResult?.pages[0].result?.messages
+    const messages = useMemo(() => {
+        return (
+            messagesQueryResult?.pages.flatMap(
+                (page) => page.result?.messages
+            ) ?? []
+        )
+    }, [messagesQueryResult])
 
     const hasNext = messages ? activeMessageIndex < messages.length - 1 : false
     const hasPrev = activeMessageIndex > 0
@@ -39,19 +52,22 @@ function MessagePageContent() {
         if (!messages || messages.length === 0) return null
         return messages.map((message, index) => (
             <button
-                className="w-11/12 md:w-5/12 text-left"
-                key={message.id}
+                className="w-11/12 text-left md:w-5/12"
+                key={message?.id}
                 onClick={() => setActiveMessageIndex(index)}
             >
-                <MessageCard message={message} threadName={threadName} />
+                {message && <MessageCard message={message} threadName={threadName} />}
             </button>
         ))
     }, [messages, threadName])
 
     if (isLoading) {
         return (
-            <div className="flex flex-1 w-full items-center justify-center">
-                <PageLoader message="Chargement des messages en cours" hamster />
+            <div className="flex w-full flex-1 items-center justify-center">
+                <PageLoader
+                    message="Chargement des messages en cours"
+                    hamster
+                />
             </div>
         )
     }
@@ -71,9 +87,15 @@ function MessagePageContent() {
                 goToNext={goToNext}
                 goToPrev={goToPrev}
             />
-            <div className="flex flex-1 w-full flex-wrap items-center justify-center gap-5 md:gap-10">
-                {messageCards ?? (
-                    <EmptyMessages refetchFunc={refetch} />
+            <div className="flex w-full flex-1 flex-wrap items-center justify-center gap-5 md:gap-10">
+                {messageCards ?? <EmptyMessages refetchFunc={refetch} />}
+                {_hasNextPage && (
+                    <Button
+                        className="bg-primary text-primary-foreground hover:bg-primary/90"
+                        onClick={() => fetchNextPage()}
+                    >
+                        Charger plus de messages
+                    </Button>
                 )}
             </div>
         </>

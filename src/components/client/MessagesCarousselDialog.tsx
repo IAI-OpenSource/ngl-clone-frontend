@@ -8,7 +8,7 @@ import type { ReadMessage } from "@/types/api/messagesApiSchemas.ts"
 
 interface MessagesCarousselDialogProps {
     threadName: string | null | undefined
-    activeMessage: ReadMessage | null
+    activeMessage: ReadMessage | null | undefined
     closeDialog: () => void
     hasNext: boolean
     hasPrev: boolean
@@ -57,7 +57,7 @@ function MessagesCarousselDialog({
                     {/* Boutons desktop */}
                     <NavButton className="hidden md:flex" direction="prev" disabled={!hasPrev} onClick={goToPrev} />
 
-                    {activeMessage === null ? (
+                    {activeMessage === null || activeMessage === undefined ? (
                         <div>Rien a afficher poto</div>
                     ) : (
                         <MessageDialogCard
