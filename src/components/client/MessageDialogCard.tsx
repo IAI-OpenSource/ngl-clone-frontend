@@ -19,12 +19,14 @@ export function MessageDialogCard({
     mentionedNames,
 }: Readonly<ThreadMessageCardProps>) {
     const hasMentions = !!mentionedNames?.length
-    const {mobile} = calculateMessageFontSize(text.length)
+    const { fontSize } = calculateMessageFontSize(text.length)
+
     return (
         <div
             className={[
-                "relative isolate flex flex-col justify-between overflow-hidden",
-                "aspect-square w-full max-w-[320px] sm:max-w-105 md:max-w-150",
+                "@container relative isolate flex flex-col justify-between overflow-hidden",
+                "w-full max-w-[360px] sm:max-w-[480px] md:max-w-[640px]",
+                "min-h-[360px] sm:min-h-[480px] md:min-h-[640px]",
                 "rounded-[24px] sm:rounded-[28px] md:rounded-[36px]",
                 "p-6 sm:p-8 md:p-15",
                 "bg-(--dia-msg-card-surface)",
@@ -61,13 +63,11 @@ export function MessageDialogCard({
                 <SVGd />
             </div>
 
-            <div className="relative z-[2] flex items-center justify-between gap-2">
-                <div className="truncate rounded-full border-[2.5px] border-(--dia-msg-card-ink) bg-(--dia-msg-card-badge-bg) px-3 py-1.5 font-[family-name:var(--dia-msg-card-font-display)] text-[13px] font-extrabold tracking-[0.2px] text-[var(--dia-msg-card-ink)] uppercase shadow-[3px_3px_0_var(--dia-msg-card-ink)] sm:px-4 sm:py-2 sm:text-base md:px-5 md:py-2.5 md:text-[21px]">
+            <div className="relative z-[2] flex items-center justify-center gap-2">
+                <div className="truncate text-foreground rounded-full border-[2.5px] border-(--dia-msg-card-ink) bg-(--dia-msg-card-badge-bg) px-3 py-1.5 font-[family-name:var(--dia-msg-card-font-display)] text-xs font-extrabold tracking-[0.2px] text-[var(--dia-msg-card-ink)] uppercase shadow-[3px_3px_0_var(--dia-msg-card-ink)] sm:px-4 sm:py-2 sm:text-base md:px-5 md:py-2.5 md:text-xl">
                     {threadName}
                 </div>
-                <div className="shrink-0 rounded-full bg-(--dia-msg-card-ink) px-3 py-1.5 text-[10px] font-bold tracking-[1.2px] text-[var(--dia-msg-card-cream)] uppercase sm:px-4 sm:py-2 sm:text-xs md:text-sm">
-                    Anonyme
-                </div>
+
             </div>
 
             <div className="relative z-[2] flex flex-1 items-center justify-center py-4 sm:py-6 md:py-7.5">
@@ -79,18 +79,18 @@ export function MessageDialogCard({
                     )}
                     <div
                         className="rounded-xl bg-(--dia-msg-card-ink) px-5 py-4 leading-[1.4] font-semibold tracking-[-0.3px] wrap-break-word text-(--dia-msg-card-cream) sm:px-6 sm:py-6 md:p-8"
-                        style={{fontSize: `${mobile}px`}}
+                        style={{ fontSize }}
                     >
                         {text}
                     </div>
                 </div>
             </div>
 
-            <div className="relative z-2 flex items-center justify-between gap-2">
-                <div className="truncate text-[11px] font-semibold text-(--dia-msg-card-ink-soft) sm:text-xs md:text-sm">
+            <div className="relative z-2 flex items-center md:justify-between justify-center gap-2">
+                <div className=" hidden md:block truncate text-[11px] font-semibold text-(--dia-msg-card-ink-soft) sm:text-xl md:text-sm">
                     Plateforme Anonyme IAI
                 </div>
-                <div className="shrink-0 text-[11px] font-medium text-(--dia-msg-card-ink-faint) sm:text-xs md:text-sm">
+                <div className="shrink-0 text-xs font-medium text-(--dia-msg-card-ink-faint) md:text-sm">
                     {timestamp}
                 </div>
             </div>

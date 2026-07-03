@@ -56,42 +56,56 @@ export function timeAgo(dateIso: string) {
     return `il y a ${Math.round(diffH / 24)} j`
 }
 
-/**
- * Calcule dynamiquement la taille de police du message en fonction de sa longueur.
- *
- * Breakpoints responsive :
- * - Mobile (default): de 16px (500 chars) à 24px (court)
- * - SM (640px+): de 20px (500 chars) à 32px (court)
- * - MD (768px+): de 32px (500 chars) à 44px (court)
- *
- * @param textLength - Nombre de caractères du message (0-500)
- * @returns Objet avec les classes Tailwind responsives pour la taille
- */
-export function calculateMessageFontSize(textLength: number) {
-    // Clamper à [0, 500]
-    const length = Math.max(0, Math.min(500, textLength));
+interface FontSizeResult {
+    /** Valeur prête à être injectée dans style={{ fontSize }} */
+    fontSize: string
+    /** Taille min atteignable (px), pour debug/tests */
+    min: number
+    /** Taille max atteignable (px), pour debug/tests */
+    max: number
+}
 
-    // Interpolation linéaire pour chaque breakpoint
-    // Plus le texte est long, plus la taille est petite
-    const mobileMin = 16;
-    const mobileMax = 24;
-    const mobileFontSize = mobileMax - (length / 500) * (mobileMax - mobileMin);
+const MAX_MESSAGE_LENGTH = 500
 
-    const smMin = 20;
-    const smMax = 32;
-    const smFontSize = smMax - (length / 500) * (smMax - smMin);
+// Taille de police à une largeur de conteneur "petite" (~320px, mobile)
+const FONT_SHORT_AT_SMALL = 26 // message très court
+const FONT_LONG_AT_SMALL = 14 // message à 500 caractères
 
-    const mdMin = 32;
-    const mdMax = 44;
-    const mdFontSize = mdMax - (length / 500) * (mdMax - mdMin);
+// Taille de police à une largeur de conteneur "grande" (~600px, desktop)
+const FONT_SHORT_AT_LARGE = 40 // message très court
+const FONT_LONG_AT_LARGE = 20 // message à 500 caractères
+
+// Largeurs de conteneur de référence utilisées pour l'interpolation (px)
+const CONTAINER_SMALL = 320
+const CONTAINER_LARGE = 600
+
+function lerp(a: number, b: number, t: number): number {
+    return a + (b - a) * t
+}
+
+export function calculateMessageFontSize(textLength: number): FontSizeResult {
+    const length = Math.max(0, Math.min(MAX_MESSAGE_LENGTH, textLength))
+    const t = length / MAX_MESSAGE_LENGTH // 0 = court, 1 = 500 caractères
+
+    // Taille cible aux deux largeurs de référence, selon la longueur du texte
+    const fontAtSmall = lerp(FONT_SHORT_AT_SMALL, FONT_LONG_AT_SMALL, t)
+    const fontAtLarge = lerp(FONT_SHORT_AT_LARGE, FONT_LONG_AT_LARGE, t)
+
+    // Droite passant par (CONTAINER_SMALL, fontAtSmall) et (CONTAINER_LARGE, fontAtLarge)
+    // exprimée en fonction de la largeur du conteneur (cqw = 1% de cette largeur)
+    const slope =
+        (fontAtLarge - fontAtSmall) / (CONTAINER_LARGE - CONTAINER_SMALL)
+    const intercept = fontAtSmall - slope * CONTAINER_SMALL
+    const cqwCoefficient = slope * 100
+
+    const min = Math.min(fontAtSmall, fontAtLarge)
+    const max = Math.max(fontAtSmall, fontAtLarge)
+
+    const fluid = `calc(${intercept.toFixed(2)}px + ${cqwCoefficient.toFixed(4)}cqw)`
 
     return {
-        /** Classe Tailwind dynamique pour appliquer les font-sizes responsives */
-        className: `text-[${mobileFontSize.toFixed(1)}px] sm:text-[${smFontSize.toFixed(1)}px] md:text-[${mdFontSize.toFixed(1)}px]`,
-
-        /** Valeurs brutes (px) pour chaque breakpoint, au cas où on veux les utiliser ailleurs */
-        mobile: Math.round(mobileFontSize),
-        sm: Math.round(smFontSize),
-        md: Math.round(mdFontSize),
-    };
+        fontSize: `clamp(${min.toFixed(2)}px, ${fluid}, ${max.toFixed(2)}px)`,
+        min: Math.round(min),
+        max: Math.round(max),
+    }
 }

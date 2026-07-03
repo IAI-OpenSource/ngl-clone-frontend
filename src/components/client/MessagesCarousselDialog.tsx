@@ -34,10 +34,14 @@ function MessagesCarousselDialog({
         >
             <DialogTrigger></DialogTrigger>
             <DialogContent className="w-full sm:max-w-7xl">
-                <div className="flex w-full flex-row items-center justify-between gap-4">
-                    <Button variant="outline" disabled={!hasPrev} onClick={goToPrev}>
-                        <ArrowLeft/>
-                        <span className="hidden md:block">Précedent</span>
+                <div className="flex w-full flex-col flex-wrap items-center justify-center md:flex-row md:justify-between gap-4">
+                    <Button
+                        className="hidden md:flex"
+                        disabled={!hasPrev}
+                        onClick={goToPrev}
+                    >
+                        <ArrowLeft />
+                        <span>Précedent</span>
                     </Button>
                     {activeMessage === null ? (
                         <div>Rien a afficher poto</div>
@@ -50,12 +54,31 @@ function MessagesCarousselDialog({
                                 true
                             )}
                         />
-
                     )}
-                    <Button variant="default" disabled={!hasNext} onClick={goToNext}>
-                        <span className="hidden md:block">Suivant</span>
+                    <Button
+                        className="hidden md:flex"
+                        disabled={!hasNext}
+                        onClick={goToNext}
+                    >
+                        <span>Suivant</span>
                         <ArrowRight />
                     </Button>
+                    <div className="w-full flex-row justify-around flex md:hidden">
+                        <Button
+                            disabled={!hasPrev}
+                            onClick={goToPrev}
+                        >
+                            <ArrowLeft />
+                            <span>Précedent</span>
+                        </Button>
+                        <Button
+                            disabled={!hasNext}
+                            onClick={goToNext}
+                        >
+                            <span>Suivant</span>
+                            <ArrowRight />
+                        </Button>
+                    </div>
                 </div>
             </DialogContent>
         </Dialog>
