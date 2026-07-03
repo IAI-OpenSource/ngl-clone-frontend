@@ -29,7 +29,7 @@ export function MessageDialogCard({
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.4, ease: [0.3, 0.7, 0.4, 1] }}
+            transition={{ duration: 0.2, ease: [0.3, 0.7, 0.4, 1] }}
             className={[
                 "@container relative isolate flex flex-col justify-between overflow-hidden",
                 "w-full max-w-[360px] sm:max-w-[480px] md:max-w-[640px]",
