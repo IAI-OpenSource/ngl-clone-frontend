@@ -38,6 +38,7 @@ export const safeConnectedThreadQueryOptions = {
 export const messagesPaginatedQueryOptions = {
     queryKey: TANSTACK_QUERY_KEYS.MESSAGES_PAGINATED,
     initialPageParam: null as string | null,
+    staleTime: 1000 * 60 * 2, // Données fraîches pendant 2 minutes — évite un refetch à chaque montage
 
     queryFn: ({ pageParam }: {pageParam: string|null|undefined}) => getMessagesPaginated(pageParam),
 

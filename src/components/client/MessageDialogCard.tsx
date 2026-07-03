@@ -2,6 +2,7 @@ import SVGa from "@/assets/svg/lb.svg?react"
 import SVGb from "@/assets/svg/lt.svg?react"
 import SVGc from "@/assets/svg/rt.svg?react"
 import SVGd from "@/assets/svg/rb.svg?react"
+import { useMemo } from "react"
 import { calculateMessageFontSize } from "@/utils/globalUtils.ts"
 
 export interface ThreadMessageCardProps {
@@ -19,7 +20,8 @@ export function MessageDialogCard({
     mentionedNames,
 }: Readonly<ThreadMessageCardProps>) {
     const hasMentions = !!mentionedNames?.length
-    const { fontSize } = calculateMessageFontSize(text.length)
+    // Mémoïsé : calcul mathématique pur, ne dépend que de la longueur du texte
+    const { fontSize } = useMemo(() => calculateMessageFontSize(text.length), [text.length])
 
     return (
         <div

@@ -1,6 +1,5 @@
 import { api } from "@/services/baseApi.ts"
 import type { GetMessagesPaginatedResponse } from "@/types/api/messagesApiSchemas.ts"
-import { sleep } from "@/utils/globalUtils.ts"
 
 export async function getMessagesPaginated(
     cursor: string | null = null,
@@ -16,6 +15,5 @@ export async function getMessagesPaginated(
             }
         }
     )
-    await sleep(5)
     return res.data
 }

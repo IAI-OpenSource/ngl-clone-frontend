@@ -6,7 +6,7 @@ import {
     EyeOff,
     Zap,
 } from "lucide-react"
-import React from "react"
+import React, { useMemo } from "react"
 import "./MessageCard.css"
 import WhatsAppIcon from "@/assets/svg/whatsapp.svg?react"
 import { timeAgo } from "@/utils/globalUtils.ts"
@@ -31,9 +31,12 @@ const STATUS_MAP: Record<WaSentStatus, MapOpbject>= {
 
 
 
-export default function MessageCard({ message, threadName }: Readonly<{ message: ReadMessage, threadName: string | null | undefined }>) {
+const MessageCard = React.memo(function MessageCard({ message, threadName }: Readonly<{ message: ReadMessage, threadName: string | null | undefined }>) {
     const status = STATUS_MAP[message.wa_status] ?? STATUS_MAP.pending
     const StatusIcon = status.Icon
+
+    // Mémoïsé : timeAgo ne dépend que de created_at, inutile de le recalculer à chaque render
+    const timeAgoStr = useMemo(() => timeAgo(message.created_at), [message.created_at])
 
     return (
         <div className="glitch-wrap cursor-pointer">
@@ -88,10 +91,13 @@ export default function MessageCard({ message, threadName }: Readonly<{ message:
                     )}
 
                 <div className="glitch-foot">
-                    <span>{timeAgo(message.created_at)}</span>
+                    <span>{timeAgoStr}</span>
                     <span className="glitch-id">{threadName}</span>
                 </div>
             </div>
         </div>
     )
-}
+})
+
+export default MessageCard
+
