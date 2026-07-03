@@ -10,6 +10,7 @@ function EmptyMessages({refetchFunc}: Readonly<{ refetchFunc: () => void }>) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.3, 0.7, 0.4, 1] }}
+            className={"flex h-full w-full items-center justify-center"}
         >
             <EmptyPageContent
                 refetchFunc={refetchFunc}

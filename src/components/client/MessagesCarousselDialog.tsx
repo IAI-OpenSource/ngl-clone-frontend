@@ -16,6 +16,9 @@ interface MessagesCarousselDialogProps {
     goToNext: () => void
     goToPrev: () => void
 }
+const findDirection = (direction: 'prev' | 'next') => {
+    return direction === 'prev' ? "Précédent" : "Suivant"
+}
 
 // Composant factorisé — évite la duplication des boutons desktop/mobile
 const NavButton = ({
@@ -31,7 +34,7 @@ const NavButton = ({
 }) => (
     <Button className={className} disabled={disabled} onClick={onClick}>
         {direction === "prev" && <ArrowLeft />}
-        <span>{direction === "prev" ? "Précedent" : "Suivant"}</span>
+        <span>{disabled ? "Y'a plus rien poto" : findDirection(direction)}</span>
         {direction === "next" && <ArrowRight />}
     </Button>
 )
