@@ -4,6 +4,7 @@ import {
     AudioWaveform,
     CirclePlus,
     Eye,
+    FlaskConical,
     Home,
     MessageCircleCode,
     MessageCirclePlus,
@@ -48,5 +49,10 @@ export const mobileNavbarItems : DockItemData[] = [
         icon: <MessageCirclePlus size={18} />,
         label: "Nouveau Message",
         link: CLIENT_ROUTES_MAPPING.NEW_MESSAGE,
+    },
+    {
+        icon: <FlaskConical size={18} />,
+        label: "Test",
+        link: "/test",
     },
 ]

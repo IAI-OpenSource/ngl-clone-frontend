@@ -9,12 +9,15 @@ import {
 import type { ReadMessage, WaSentStatus } from "@/types/api/threadsSchemas.ts"
 import React from "react"
 import "./MessageCard.css"
+import WhatsAppIcon from "@/assets/svg/whatsapp.svg?react"
+import { timeAgo } from "@/utils/globalUtils.ts"
 
 interface MapOpbject {
     label: string
     Icon: React.ComponentType<{ size?: number; strokeWidth?: number }>
     color: string
 }
+
 const STATUS_MAP: Record<WaSentStatus, MapOpbject>= {
     pending: { label: "En Attente", Icon: Clock, color: "var(--glitch-status-pending)" },
     delivered: { label: "Livré", Icon: CheckCheck, color: "var(--glitch-status-success)" },
@@ -23,21 +26,9 @@ const STATUS_MAP: Record<WaSentStatus, MapOpbject>= {
     queued: { label: "En cours", Icon: AlertTriangle, color: "var(--glitch-status-error)" },
 }
 
-import WhatsAppIcon from "@/assets/svg/whatsapp.svg?react"
-import { timeAgo } from "@/utils/globalUtils.ts"
 
 
-
-/* ============================================================
-   VERSION A — "Glitch décalé"
-   Ton idée : une carte à deux calques, l'un légèrement surélevé
-   (translaté vers le haut-gauche, ton clair) et l'autre plus bas
-   (translaté vers le bas-droite, ton contrasté), comme une image
-   qu'on a mal recalée — un rayon d'angle asymétrique renforce le
-   côté "fait main / cassé exprès" plutôt qu'un glitch numérique
-   propre.
-   ============================================================ */
-export default function CardGlitch({ message }: Readonly<{ message: ReadMessage }>) {
+export default function MessageCard({ message }: Readonly<{ message: ReadMessage }>) {
     const status = STATUS_MAP[message.wa_status] ?? STATUS_MAP.pending
     const StatusIcon = status.Icon
 
