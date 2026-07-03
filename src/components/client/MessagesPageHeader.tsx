@@ -1,5 +1,6 @@
 import { MessageCircle } from "lucide-react"
 import { useConnectedThread } from "@/hooks/queries/useConnectedThread.ts"
+import { motion } from "motion/react"
 
 
 function MessagesPageHeader() {
@@ -7,13 +8,33 @@ function MessagesPageHeader() {
 
     const threadName = threadQueryResult?.result?.name
     return (
-        <div className="flex w-full items-center justify-between rounded-lg py-3 md:w-5/6 ">
-            <div className="flex items-center justify-between">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center p-1">
+        <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, ease: [0.3, 0.7, 0.4, 1] }}
+            className="flex w-full items-center justify-between rounded-lg py-3 md:w-5/6"
+        >
+            <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.1, ease: [0.3, 0.7, 0.4, 1] }}
+                className="flex items-center justify-between"
+            >
+                <motion.div
+                    initial={{ rotate: -10, scale: 0.8 }}
+                    animate={{ rotate: 0, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.15, ease: [0.3, 0.7, 0.4, 1] }}
+                    className="flex h-12 w-12 shrink-0 items-center justify-center p-1"
+                >
                     <MessageCircle className="h-full w-full" />
-                </div>
+                </motion.div>
 
-                <div className="flex pl-4">
+                <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.2, ease: [0.3, 0.7, 0.4, 1] }}
+                    className="flex pl-4"
+                >
                     <div className="flex flex-col">
                         <span className="font-space-grotesk text-xl font-bold md:text-2xl">
                             Messages de {threadName}
@@ -22,13 +43,18 @@ function MessagesPageHeader() {
                             Je sais pas encore quoi mettre ici nvm
                         </span>
                     </div>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
 
-            <div className="hidden md:flex md:justify-end">
+            <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.1, ease: [0.3, 0.7, 0.4, 1] }}
+                className="hidden md:flex md:justify-end"
+            >
                 <NewMessageButton />
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }
 

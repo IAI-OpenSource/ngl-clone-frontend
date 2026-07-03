@@ -7,6 +7,7 @@ import PageLoader from "@/components/client/PageLoader.tsx"
 import { useConnectedThread } from "@/hooks/queries/useConnectedThread.ts"
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll.ts"
 import { Spinner } from "@/components/ui/spinner.tsx"
+import { motion, AnimatePresence } from "motion/react"
 
 function MessagePageContent() {
     const [activeMessageIndex, setActiveMessageIndex] = useState<number>(-1)
@@ -59,24 +60,39 @@ function MessagePageContent() {
     const messageCards = useMemo(() => {
         if (!messages || messages.length === 0) return null
         return messages.map((message, index) => (
-            <button
+            <motion.button
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                transition={{ 
+                    duration: 0.4, 
+                    delay: index * 0.05,
+                    ease: [0.3, 0.7, 0.4, 1] 
+                }}
+                layout
                 className="w-11/12 text-left md:w-5/12"
                 key={message?.id}
                 onClick={() => setActiveMessageIndex(index)}
             >
                 {message && <MessageCard message={message} threadName={threadName} />}
-            </button>
+            </motion.button>
         ))
     }, [messages, threadName])
 
     if (isLoading) {
         return (
-            <div className="flex w-full flex-1 items-center justify-center">
+            <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4, ease: [0.3, 0.7, 0.4, 1] }}
+                className="flex w-full flex-1 items-center justify-center"
+            >
                 <PageLoader
                     message="Chargement des messages en cours"
                     hamster
                 />
-            </div>
+            </motion.div>
         )
     }
 
@@ -95,22 +111,43 @@ function MessagePageContent() {
                 goToNext={goToNext}
                 goToPrev={goToPrev}
             />
-            <div className="flex w-full flex-1 flex-col items-center gap-5 md:gap-10">
-                <div className="flex w-full flex-wrap items-center justify-center gap-5 md:gap-10">
-                    {messageCards ?? <EmptyMessages refetchFunc={refetch} />}
-                </div>
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1, ease: [0.3, 0.7, 0.4, 1] }}
+                className="flex w-full flex-1 flex-col items-center gap-5 md:gap-10"
+            >
+                <motion.div
+                    layout
+                    className="flex w-full flex-wrap items-center justify-center gap-5 md:gap-10"
+                >
+                    <AnimatePresence mode="popLayout">
+                        {messageCards ?? <EmptyMessages refetchFunc={refetch} />}
+                    </AnimatePresence>
+                </motion.div>
                 {hasNextPage && (
-                    <div
+                    <motion.div
                         ref={loadMoreRef}
-                        aria-hidden         // Pour éviter que le div soit focusable par les lecteurs d'écran, car il n'a pas de contenu interactif
+                        aria-hidden
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3, ease: [0.3, 0.7, 0.4, 1] }}
                         className="flex w-full justify-center py-6"
                     >
                         {isFetchingNextPage && (
-                            <Spinner className="size-6 text-muted-foreground" />
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.5 }}
+                                transition={{ duration: 0.2, ease: [0.3, 0.7, 0.4, 1] }}
+                            >
+                                <Spinner className="size-6 text-muted-foreground animate-spin" />
+                            </motion.div>
                         )}
-                    </div>
+                    </motion.div>
                 )}
-            </div>
+            </motion.div>
         </>
     )
 }

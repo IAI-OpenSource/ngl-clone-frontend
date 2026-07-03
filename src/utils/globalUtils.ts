@@ -75,25 +75,26 @@ interface FontSizeResult {
     max: number
 }
 
-const MAX_MESSAGE_LENGTH = 500
-
-// Taille de police à une largeur de conteneur "petite" (~320px, mobile)
-const FONT_SHORT_AT_SMALL = 26 // message très court
-const FONT_LONG_AT_SMALL = 14 // message à 500 caractères
-
-// Taille de police à une largeur de conteneur "grande" (~600px, desktop)
-const FONT_SHORT_AT_LARGE = 40 // message très court
-const FONT_LONG_AT_LARGE = 20 // message à 500 caractères
-
-// Largeurs de conteneur de référence utilisées pour l'interpolation (px)
-const CONTAINER_SMALL = 320
-const CONTAINER_LARGE = 600
-
 function lerp(a: number, b: number, t: number): number {
     return a + (b - a) * t
 }
 
 export function calculateMessageFontSize(textLength: number): FontSizeResult {
+    const MAX_MESSAGE_LENGTH = 500
+
+    // Taille de police à une largeur de conteneur "petite" (~320px, mobile)
+    const FONT_SHORT_AT_SMALL = 26 // message très court
+    const FONT_LONG_AT_SMALL = 14 // message à 500 caractères
+
+    // Taille de police à une largeur de conteneur "grande" (~600px, desktop)
+    const FONT_SHORT_AT_LARGE = 40 // message très court
+    const FONT_LONG_AT_LARGE = 20 // message à 500 caractères
+
+    // Largeurs de conteneur de référence utilisées pour l'interpolation (px)
+    const CONTAINER_SMALL = 320
+    const CONTAINER_LARGE = 600
+
+
     const length = Math.max(0, Math.min(MAX_MESSAGE_LENGTH, textLength))
     const t = length / MAX_MESSAGE_LENGTH // 0 = court, 1 = 500 caractères
 
