@@ -4,6 +4,8 @@ import {
     getConnectedThread,
     safeGetConnectedThread,
 } from "@/services/threadService.ts"
+import { getMessagesPaginated } from "@/services/messageService.ts"
+import type { GetMessagesPaginatedResponse } from "@/types/api/messagesApiSchemas.ts"
 
 export const allThreadsQueryOptions = {
     queryKey: TANSTACK_QUERY_KEYS.THREAD_LIST,
@@ -31,4 +33,14 @@ export const safeConnectedThreadQueryOptions = {
         return await safeGetConnectedThread()
     },
     retry: false
+}
+
+export const messagesPaginatedQueryOptions = {
+    queryKey: TANSTACK_QUERY_KEYS.MESSAGES_PAGINATED,
+    initialPageParam: null as string | null,
+
+    queryFn: ({ pageParam }: {pageParam: string|null|undefined}) => getMessagesPaginated(pageParam),
+
+    getNextPageParam: (lastPage: GetMessagesPaginatedResponse) =>
+        lastPage.result?.has_next_page ? lastPage.result.next_cursor : undefined,
 }

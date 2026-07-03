@@ -6,11 +6,14 @@ import {
     EyeOff,
     Zap,
 } from "lucide-react"
-import type { ReadMessage, WaSentStatus } from "@/types/api/threadsSchemas.ts"
 import React from "react"
 import "./MessageCard.css"
 import WhatsAppIcon from "@/assets/svg/whatsapp.svg?react"
 import { timeAgo } from "@/utils/globalUtils.ts"
+import type {
+    ReadMessage,
+    WaSentStatus,
+} from "@/types/api/messagesApiSchemas.ts"
 
 interface MapOpbject {
     label: string

@@ -1,10 +1,10 @@
-import type { ReadMessage } from "@/types/api/threadsSchemas.ts"
 import { Dialog } from "@/components/ui/dialog.tsx"
 import { DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import MessageDialogCard from "@/components/client/MessageDialogCard.tsx"
 import { formatCreatedDate } from "@/utils/globalUtils.ts"
 import Button from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import type { ReadMessage } from "@/types/api/messagesApiSchemas.ts"
 
 interface MessagesCarousselDialogProps {
     threadName: string

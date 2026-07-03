@@ -5,4 +5,5 @@ export const QUERY_ENTITIES = {
 export const TANSTACK_QUERY_KEYS = {
     THREAD_LIST: [QUERY_ENTITIES.THREAD, "list"] as const,
     CONNECTED_THREAD: [QUERY_ENTITIES.THREAD, "connected"] as const,
+    MESSAGES_PAGINATED: [QUERY_ENTITIES.THREAD, "messages", "paginated"] as const,
 }
