@@ -7,6 +7,9 @@ import Index from "@/pages/Index.tsx"
 import ThreadsPage from "@/pages/ThreadsPage.tsx"
 import MessagesPage from "@/pages/MessagesPage.tsx"
 import TestPage from "@/pages/TestPage.tsx"
+import threadAuthLoader from "@/loaders/threadAuthLoader.ts"
+import FullPageLoader from "@/components/client/FullPageLoader.tsx"
+import NewMessagePage from "@/pages/NewMessagePage.tsx"
 
 export const router = createBrowserRouter([
     {
@@ -24,7 +27,16 @@ export const router = createBrowserRouter([
             {
                 path: CLIENT_ROUTES_MAPPING.THREADS_MESSAGES,
                 Component: MessagesPage,
+                loader: threadAuthLoader,
+                HydrateFallback: FullPageLoader,
             },
+            {
+                path: CLIENT_ROUTES_MAPPING.NEW_MESSAGE,
+                Component: NewMessagePage,
+                loader: threadAuthLoader,
+                HydrateFallback: FullPageLoader,
+            },
+
             {
                 path: "/test",
                 Component: TestPage,

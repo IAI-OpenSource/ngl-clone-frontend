@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton"
 import AnimatedLoader from "@/components/ui/AnimatedLoader.tsx"
 
-export default function FullPageLoader({ message }: Readonly<{ message: string }>) {
+export default function FullPageLoader({ message }: Readonly<{ message?: string }>) {
     return (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/80 backdrop-blur-sm">
             <div className="relative flex flex-col items-center gap-4 rounded-xl border bg-card p-6 shadow-lg md:gap-5">
@@ -15,7 +15,7 @@ export default function FullPageLoader({ message }: Readonly<{ message: string }
                         Chargement de l'App
                     </p>
                     <p className="animate-pulse text-xs text-muted-foreground">
-                        {message}
+                        {message || 'blablablabla'}
                     </p>
                 </div>
             </div>

@@ -4,16 +4,13 @@ import { useCallback, useMemo, useState } from "react"
 import { useMessages } from "@/hooks/queries/useMessages.ts"
 import MessageCard from "@/components/client/MessageCard.tsx"
 import PageLoader from "@/components/client/PageLoader.tsx"
-import { useConnectedThread } from "@/hooks/queries/useConnectedThread.ts"
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll.ts"
 import { Spinner } from "@/components/ui/spinner.tsx"
 import { motion, AnimatePresence } from "motion/react"
 
-function MessagePageContent() {
+function MessagePageContent({ threadName }: Readonly<{ threadName: string }>) {
     const [activeMessageIndex, setActiveMessageIndex] = useState<number>(-1)
-    const { threadQueryResult } = useConnectedThread()
 
-    const threadName = threadQueryResult?.result?.name
 
     // useCallback : référence stable — évite un re-render de MessagesCarousselDialog à chaque render
     const closeDialog = useCallback(() => setActiveMessageIndex(-1), [])
@@ -64,17 +61,19 @@ function MessagePageContent() {
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                transition={{ 
-                    duration: 0.4, 
+                transition={{
+                    duration: 0.4,
                     delay: index * 0.05,
-                    ease: [0.3, 0.7, 0.4, 1] 
+                    ease: [0.3, 0.7, 0.4, 1],
                 }}
                 layout
                 className="w-11/12 text-left md:w-5/12"
                 key={message?.id}
                 onClick={() => setActiveMessageIndex(index)}
             >
-                {message && <MessageCard message={message} threadName={threadName} />}
+                {message && (
+                    <MessageCard message={message} threadName={threadName} />
+                )}
             </motion.button>
         ))
     }, [messages, threadName])
@@ -114,15 +113,21 @@ function MessagePageContent() {
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.1, ease: [0.3, 0.7, 0.4, 1] }}
-                className="flex w-full flex-1 flex-col justify-center items-center gap-5 md:gap-10"
+                transition={{
+                    duration: 0.4,
+                    delay: 0.1,
+                    ease: [0.3, 0.7, 0.4, 1],
+                }}
+                className="flex w-full flex-1 flex-col items-center justify-center gap-5 md:gap-10"
             >
                 <motion.div
                     layout
                     className="flex w-full flex-wrap items-center justify-center gap-5 md:gap-10"
                 >
                     <AnimatePresence mode="popLayout">
-                        {messageCards ?? <EmptyMessages refetchFunc={refetch} />}
+                        {messageCards ?? (
+                            <EmptyMessages refetchFunc={refetch} />
+                        )}
                     </AnimatePresence>
                 </motion.div>
                 {hasNextPage && (
@@ -140,9 +145,12 @@ function MessagePageContent() {
                                 initial={{ opacity: 0, scale: 0.5 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.5 }}
-                                transition={{ duration: 0.2, ease: [0.3, 0.7, 0.4, 1] }}
+                                transition={{
+                                    duration: 0.2,
+                                    ease: [0.3, 0.7, 0.4, 1],
+                                }}
                             >
-                                <Spinner className="size-6 text-muted-foreground animate-spin" />
+                                <Spinner className="size-6 animate-spin text-muted-foreground" />
                             </motion.div>
                         )}
                     </motion.div>

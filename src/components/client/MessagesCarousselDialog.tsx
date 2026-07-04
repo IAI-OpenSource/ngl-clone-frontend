@@ -58,7 +58,7 @@ function MessagesCarousselDialog({
             <DialogTrigger></DialogTrigger>
             <DialogContent className="w-full ring-0 bg-transparent sm:max-w-7xl">
                 <div className="flex w-full flex-col flex-wrap items-center justify-center md:flex-row md:justify-between gap-4">
-                    {/* Boutons desktop */}
+
                     <NavButton className="hidden md:flex" direction="prev" disabled={!hasPrev} onClick={goToPrev} />
 
                     <AnimatePresence mode="wait">
@@ -87,7 +87,6 @@ function MessagesCarousselDialog({
 
                     <NavButton className="hidden md:flex" direction="next" disabled={!hasNext} onClick={goToNext} />
 
-                    {/* Boutons mobile */}
                     <div className="w-full flex-row justify-around flex md:hidden">
                         <NavButton direction="prev" disabled={!hasPrev} onClick={goToPrev} />
                         <NavButton direction="next" disabled={!hasNext} onClick={goToNext} />

@@ -1,12 +1,10 @@
 import { MessageCircle } from "lucide-react"
-import { useConnectedThread } from "@/hooks/queries/useConnectedThread.ts"
 import { motion } from "motion/react"
+import { Link } from "react-router"
+import { genarateNewMessageRoute } from "@/routing/paths-mapping.ts"
 
 
-function MessagesPageHeader() {
-    const {threadQueryResult} = useConnectedThread()
-
-    const threadName = threadQueryResult?.result?.name
+function MessagesPageHeader({ threadName, threadSlug }: Readonly<{ threadName: string; threadSlug: string }>) {
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -17,13 +15,21 @@ function MessagesPageHeader() {
             <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.1, ease: [0.3, 0.7, 0.4, 1] }}
+                transition={{
+                    duration: 0.4,
+                    delay: 0.1,
+                    ease: [0.3, 0.7, 0.4, 1],
+                }}
                 className="flex items-center justify-between"
             >
                 <motion.div
                     initial={{ rotate: -10, scale: 0.8 }}
                     animate={{ rotate: 0, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.15, ease: [0.3, 0.7, 0.4, 1] }}
+                    transition={{
+                        duration: 0.5,
+                        delay: 0.15,
+                        ease: [0.3, 0.7, 0.4, 1],
+                    }}
                     className="flex h-12 w-12 shrink-0 items-center justify-center p-1"
                 >
                     <MessageCircle className="h-full w-full" />
@@ -32,7 +38,11 @@ function MessagesPageHeader() {
                 <motion.div
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: 0.2, ease: [0.3, 0.7, 0.4, 1] }}
+                    transition={{
+                        duration: 0.3,
+                        delay: 0.2,
+                        ease: [0.3, 0.7, 0.4, 1],
+                    }}
                     className="flex pl-4"
                 >
                     <div className="flex flex-col">
@@ -49,10 +59,17 @@ function MessagesPageHeader() {
             <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.1, ease: [0.3, 0.7, 0.4, 1] }}
+                transition={{
+                    duration: 0.4,
+                    delay: 0.1,
+                    ease: [0.3, 0.7, 0.4, 1],
+                }}
                 className="hidden md:flex md:justify-end"
             >
-                <NewMessageButton />
+                <Link to={genarateNewMessageRoute(threadSlug)}>
+
+                    <NewMessageButton />
+                </Link>
             </motion.div>
         </motion.div>
     )
