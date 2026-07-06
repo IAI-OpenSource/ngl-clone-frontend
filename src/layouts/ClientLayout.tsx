@@ -4,6 +4,7 @@ import MobileNavMenu from "@/components/client/MobileNavMenu.tsx"
 import { DotPattern } from "@/components/ui/dot-pattern"
 import { TooltipProvider } from "@/components/ui/tooltip.tsx"
 import FullPageLoader from "@/components/client/FullPageLoader.tsx"
+import GlobalAppErrorDialog from "@/components/client/GlobalAppErrorDialog.tsx"
 
 function ClientLayout() {
     const {state} = useNavigation()
@@ -11,6 +12,7 @@ function ClientLayout() {
     return (
         <TooltipProvider>
             {isNavigating && <FullPageLoader/>}
+            <GlobalAppErrorDialog/>
             <div className="relative flex min-h-dvh flex-col overflow-hidden">
                 <DotPattern className="opacity-30 -z-10"/>
                 <header className="top-0 z-50 flex h-16 w-full items-center ">

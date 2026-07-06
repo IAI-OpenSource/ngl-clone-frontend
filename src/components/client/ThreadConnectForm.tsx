@@ -26,7 +26,7 @@ import { invalidThreadRelatedQueries } from "@/configs/react-query/utils.ts"
 import DisconnectAlertDialog from "@/components/client/DisconnectAlertDialog.tsx"
 import { isAxiosError } from "axios"
 import { router } from "@/routing/router.ts"
-import { CLIENT_ROUTES_MAPPING } from "@/routing/paths-mapping.ts"
+import { genarateMessageRoute } from "@/routing/paths-mapping.ts"
 import { useThreadAuthStore } from "@/stores/threadAuthStore.ts"
 
 function ThreadConnectForm({ thread }: Readonly<{ thread: ReadThread }>) {
@@ -87,7 +87,8 @@ function ThreadConnectForm({ thread }: Readonly<{ thread: ReadThread }>) {
         }
         if (isSuccess){
             setAuthenticate()
-            await router.navigate(CLIENT_ROUTES_MAPPING.THREADS_MESSAGES)
+            await router.navigate(genarateMessageRoute(thread.slug))
+
         }
     }
 

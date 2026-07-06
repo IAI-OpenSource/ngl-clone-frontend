@@ -8,7 +8,6 @@ import {
     DialogHeader,
     DialogTitle,
     Dialog,
-    DialogTrigger,
 } from "@/components/ui/dialog.tsx"
 
 import ThreadConnectForm from "@/components/client/ThreadConnectForm.tsx"
@@ -48,7 +47,6 @@ function ThreadsPage() {
                     if (!open) setActiveThread(null)
                 }}
             >
-                <DialogTrigger></DialogTrigger>
                 <DialogContent className="bg-accent sm:max-w-lg">
                     <DialogHeader>
                         <DialogTitle className="text-xl">

@@ -1,5 +1,5 @@
 import { Dialog } from "@/components/ui/dialog.tsx"
-import { DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { DialogContent } from "@/components/ui/dialog"
 import MessageDialogCard from "@/components/client/MessageDialogCard.tsx"
 import { formatCreatedDate } from "@/utils/globalUtils.ts"
 import Button from "@/components/ui/button";
@@ -55,7 +55,6 @@ function MessagesCarousselDialog({
                 if (!open) closeDialog()
             }}
         >
-            <DialogTrigger></DialogTrigger>
             <DialogContent className="w-full ring-0 bg-transparent sm:max-w-7xl">
                 <div className="flex w-full flex-col flex-wrap items-center justify-center md:flex-row md:justify-between gap-4">
 

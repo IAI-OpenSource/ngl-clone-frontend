@@ -5,11 +5,12 @@ import {useNavigate} from "react-router";
 import {CLIENT_ROUTES_MAPPING} from "@/routing/paths-mapping.ts";
 import { CircleIcon } from "lucide-react"
 import Button from "@/components/ui/button";
+import { useAppErrorDialogStore } from "@/stores/appErrorDialogStore.ts"
 
 function Index() {
     const {toggleTheme} = useTheme();
     const navigate = useNavigate();
-
+    const {showError} = useAppErrorDialogStore()
     return (
         <div className="flex items-center justify-center gap-3">
             <Button
@@ -37,6 +38,18 @@ function Index() {
                 }}
             >
                 Test Theme (Actuel: jsp)
+            </Button>
+            <Button
+                variant="outline"
+                onClick={() => {
+                    showError(
+                        {
+                            message: "Je sais pas quoi dire", title: "Test Error Dialog"
+                        }
+                    )
+                }}
+            >
+                Test Error Dialog
             </Button>
             {/*<Toaster />*/}
             {/*<CardFt message="Premier test" />*/}

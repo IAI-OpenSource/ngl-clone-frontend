@@ -21,7 +21,7 @@ export default async function threadAuthLoader({
         throw redirect(CLIENT_ROUTES_MAPPING.HOME)
     }
     // Juste pour test le rendu
-    await sleep(1)
+    await sleep(0.3)
 
     const threadSlug = params.threadSlug
 
