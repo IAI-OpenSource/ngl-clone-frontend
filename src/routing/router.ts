@@ -10,6 +10,7 @@ import TestPage from "@/pages/TestPage.tsx"
 import threadAuthLoader from "@/loaders/threadAuthLoader.ts"
 import FullPageLoader from "@/components/client/FullPageLoader.tsx"
 import NewMessagePage from "@/pages/NewMessagePage.tsx"
+import NotConnectedPage from "@/pages/NotConnectedPage.tsx"
 
 export const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
                 Component: NewMessagePage,
                 loader: threadAuthLoader,
                 HydrateFallback: FullPageLoader,
+            },
+            {
+                path: CLIENT_ROUTES_MAPPING.NOT_CONNECTED,
+                Component: NotConnectedPage,
             },
 
             {

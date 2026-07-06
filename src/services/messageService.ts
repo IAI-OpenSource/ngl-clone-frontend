@@ -3,7 +3,7 @@ import type { GetMessagesPaginatedResponse } from "@/types/api/messagesApiSchema
 
 export async function getMessagesPaginated(
     cursor: string | null = null,
-    limit: number = 10
+    limit: number = 20
 ): Promise<GetMessagesPaginatedResponse> {
     const res = await api.get<GetMessagesPaginatedResponse>(
         "/v1/messages/thread/paginated/",

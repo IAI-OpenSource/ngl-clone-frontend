@@ -5,14 +5,12 @@ import { useMessages } from "@/hooks/queries/useMessages.ts"
 import MessageCard from "@/components/client/MessageCard.tsx"
 import PageLoader from "@/components/client/PageLoader.tsx"
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll.ts"
-import { Spinner } from "@/components/ui/spinner.tsx"
 import { motion, AnimatePresence } from "motion/react"
+import HamsterAnimatedLoader from "@/components/ui/HamsterAnimatedLoader.tsx"
 
 function MessagePageContent({ threadName }: Readonly<{ threadName: string }>) {
     const [activeMessageIndex, setActiveMessageIndex] = useState<number>(-1)
 
-
-    // useCallback : référence stable — évite un re-render de MessagesCarousselDialog à chaque render
     const closeDialog = useCallback(() => setActiveMessageIndex(-1), [])
 
     const {
@@ -41,7 +39,6 @@ function MessagePageContent({ threadName }: Readonly<{ threadName: string }>) {
     const hasNext = messages ? activeMessageIndex < messages.length - 1 : false
     const hasPrev = activeMessageIndex > 0
 
-    // useCallback : référence stable sur les handlers de navigation
     const goToNext = useCallback(() => {
         setActiveMessageIndex((prev) => {
             const max = (messages?.length ?? 0) - 1
@@ -53,7 +50,6 @@ function MessagePageContent({ threadName }: Readonly<{ threadName: string }>) {
         setActiveMessageIndex((prev) => (prev > 0 ? prev - 1 : prev))
     }, [])
 
-    // useMemo : le mapping des cartes n'est recalculé que si messages ou threadName change
     const messageCards = useMemo(() => {
         if (!messages || messages.length === 0) return null
         return messages.map((message, index) => (
@@ -62,7 +58,7 @@ function MessagePageContent({ threadName }: Readonly<{ threadName: string }>) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
                 transition={{
-                    duration: 0.4,
+                    duration: 0.1,
                     delay: index * 0.05,
                     ease: [0.3, 0.7, 0.4, 1],
                 }}
@@ -120,40 +116,25 @@ function MessagePageContent({ threadName }: Readonly<{ threadName: string }>) {
                 }}
                 className="flex w-full flex-1 flex-col items-center justify-center gap-5 md:gap-10"
             >
-                <motion.div
-                    layout
-                    className="flex w-full flex-wrap items-center justify-center gap-5 md:gap-10"
-                >
+                <div className="flex w-full flex-wrap items-center justify-center gap-5 md:gap-10">
                     <AnimatePresence mode="popLayout">
                         {messageCards ?? (
                             <EmptyMessages refetchFunc={refetch} />
                         )}
                     </AnimatePresence>
-                </motion.div>
+                </div>
                 {hasNextPage && (
-                    <motion.div
+                    <div
                         ref={loadMoreRef}
                         aria-hidden
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.3, ease: [0.3, 0.7, 0.4, 1] }}
                         className="flex w-full justify-center py-6"
                     >
                         {isFetchingNextPage && (
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.5 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.5 }}
-                                transition={{
-                                    duration: 0.2,
-                                    ease: [0.3, 0.7, 0.4, 1],
-                                }}
-                            >
-                                <Spinner className="size-6 animate-spin text-muted-foreground" />
-                            </motion.div>
+                            <div>
+                                <HamsterAnimatedLoader />
+                            </div>
                         )}
-                    </motion.div>
+                    </div>
                 )}
             </motion.div>
         </>
