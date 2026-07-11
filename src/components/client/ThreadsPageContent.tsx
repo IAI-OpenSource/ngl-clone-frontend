@@ -19,7 +19,6 @@ import { ThreadCard } from "@/components/client/ThreadCard.tsx"
 import EmptyThreads from "@/components/client/EmptyThreads.tsx"
 import PageLoader from "@/components/client/PageLoader.tsx"
 import ThreadConnectForm from "@/components/client/ThreadConnectForm.tsx"
-import ThreadsPageHeader from "@/components/client/ThreadsPageHeader.tsx"
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -80,7 +79,6 @@ function ThreadsPageContent() {
     }
 
     const threadsToRender = rearrangeThreads(threads)
-    const connectedThread = threads?.find((t) => t.is_connected)
 
     return (
         <>
@@ -102,9 +100,6 @@ function ThreadsPageContent() {
                 </DialogContent>
             </Dialog>
 
-            <div className="flex w-full justify-center">
-                <ThreadsPageHeader connectedThread={connectedThread} />
-            </div>
 
             <motion.div
                 className="flex w-full flex-wrap justify-center gap-3"
