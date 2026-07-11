@@ -17,6 +17,44 @@ import { RefreshCcwIcon } from "lucide-react"
 import { useToast } from "@/hooks/useToasts.tsx"
 import { rearrangeThreads } from "@/utils/threadsUtils.ts"
 import SafeDivWrapper from "@/components/client/SafeDivWrapper.tsx"
+import ThreadsPageHeader from "@/components/client/ThreadsPageHeader.tsx"
+import { motion } from "motion/react"
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.04,
+            delayChildren: 0.45,
+        },
+    },
+}
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 8 },
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.35,
+            ease: [0.23, 1, 0.32, 1] as const,
+        },
+    },
+}
+
+const buttonVariants = {
+    hidden: { opacity: 0, y: 5 },
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            delay: 0.65,
+            duration: 0.35,
+            ease: [0.23, 1, 0.32, 1] as const,
+        },
+    },
+}
 
 function ThreadsPage() {
     const { threadsQueryResult, isLoading, refetch } = useAllThreads()
@@ -39,6 +77,7 @@ function ThreadsPage() {
         return <EmptyThreads refetchFunc={refatchThreads} />
     }
     const threadsToRender = rearrangeThreads(threads)
+    const connectedThread = threads?.find((t) => t.is_connected)
 
     return (
         <>
@@ -60,8 +99,17 @@ function ThreadsPage() {
                 </DialogContent>
             </Dialog>
 
-            <SafeDivWrapper className="items-center justify-center">
-                <div className="flex w-full flex-wrap items-center justify-center gap-3">
+            <SafeDivWrapper className="items-center">
+                <div className="flex w-full justify-center">
+                    <ThreadsPageHeader connectedThread={connectedThread} />
+                </div>
+
+                <motion.div
+                    className="flex w-full flex-wrap justify-center gap-3"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="show"
+                >
                     {threadsToRender.map((thread) => {
                         const isConnected = thread.is_connected
 
@@ -74,28 +122,37 @@ function ThreadsPage() {
                         }
 
                         return (
-                            <button
-                                className="w-11/12 md:w-5/12"
+                            <motion.button
+                                className="w-[calc(50%-6px)] sm:w-fit"
                                 key={thread.id}
                                 onClick={handleClick}
+                                variants={itemVariants}
                             >
                                 <ThreadCard thread={thread} />
-                            </button>
+                            </motion.button>
                         )
                     })}
-                </div>
+                </motion.div>
 
-                <Button
-                    className="mt-4 w-11/12 md:w-5/12"
-                    variant="outline"
-                    onClick={() => refatchThreads()}
+                <motion.div
+                    className="mt-4 flex w-full justify-center"
+                    variants={buttonVariants}
+                    initial="hidden"
+                    animate="show"
                 >
-                    <RefreshCcwIcon />
-                    Recharger
-                </Button>
+                    <Button
+                        className="w-11/12 md:w-5/12"
+                        variant="outline"
+                        onClick={() => refatchThreads()}
+                    >
+                        <RefreshCcwIcon />
+                        Recharger
+                    </Button>
+                </motion.div>
             </SafeDivWrapper>
         </>
     )
 }
 
 export default ThreadsPage
+

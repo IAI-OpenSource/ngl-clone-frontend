@@ -1,79 +1,136 @@
 import type { ReadThread } from "@/types/api/threadsSchemas.ts"
-import { LockKeyhole, KeyRound } from "lucide-react"
+import { KeyRound, LockKeyhole } from "lucide-react"
 import { extractThreadInitials } from "@/utils/threadsUtils.ts"
-
+import { cn } from "@/lib/utils.ts"
+import { FlickeringGrid } from "@/components/ui/flickering-grid.tsx"
 
 export function ThreadCard({ thread }: Readonly<{ thread: ReadThread }>) {
     const { name, description, is_active, is_currently_locked, is_connected, has_password } = thread
-
     const initials = extractThreadInitials(name)
 
     return (
         <div
-            className={[
-                "group relative flex cursor-pointer items-center gap-4 overflow-hidden",
-                "rounded-2xl px-5 py-4 transition-all duration-300",
-                "border bg-card",
-                is_active
-                    ? "border-primary/25 shadow-[0_4px_24px_hsl(var(--primary)/0.1)]"
-                    : "border-border shadow-sm hover:border-primary/20 hover:shadow-[0_4px_24px_hsl(var(--primary)/0.08)]",
-                "hover:-translate-y-px",
-            ].join(" ")}
+            className={cn(
+                "group relative w-full cursor-pointer overflow-hidden rounded-[18px] border bg-card sm:w-[196px]",
+                "transition-all duration-300 hover:-translate-y-1.5",
+                is_connected
+                    ? "border-primary/40 shadow-[0_6px_28px_hsl(var(--primary)/0.22)]"
+                    : "border-border shadow-md hover:border-primary/25 hover:shadow-[0_6px_20px_hsl(var(--primary)/0.1)]"
+            )}
         >
-            {/* Avatar */}
+            {/* Zone haute colorée — l'état s'encode ici */}
             <div
-                className={[
-                    "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl",
-                    "text-[15px] font-bold transition-transform duration-300 select-none group-hover:scale-105",
+                className={cn(
+                    "relative h-27 overflow-hidden",
                     is_connected
-                        ? "bg-linear-to-br from-chart-1 to-primary text-white shadow-[0_3px_12px_hsl(var(--primary)/0.3)]"
-                        : "bg-primary/8 text-primary/60",
-                ].join(" ")}
+                        ? "bg-linear-to-br from-chart-1 via-chart-2 to-primary"
+                        : is_active
+                            ? "bg-muted"
+                            : "bg-muted"
+                )}
+                style={
+                    !is_connected && is_active
+                        ? {
+                            backgroundImage:
+                                "repeating-linear-gradient(-45deg, transparent, transparent 6px, hsl(var(--border)) 6px, hsl(var(--border)) 7px)",
+                        }
+                        : undefined
+                }
             >
-                {initials}
-            </div>
+                <FlickeringGrid
+                    className="absolute inset-0 w-full h-full"
+                    squareSize={3}
+                    gridGap={5}
+                    flickerChance={0.08}
+                    color={
+                        typeof window !== "undefined"
+                            ? getComputedStyle(document.documentElement)
+                                  .getPropertyValue(
+                                      is_connected
+                                          ? "--primary-foreground"
+                                          : "--muted-foreground"
+                                  )
+                                  .trim()
+                            : is_connected
+                              ? "white"
+                              : "black"
+                    }
+                    maxOpacity={is_connected ? 0.52 : 0.14}
+                />
 
-            {/* Texte */}
-            <div className="min-w-0 flex-1">
-                <h3 className="truncate text-[15px] leading-tight font-semibold text-foreground">
-                    {name}
-                </h3>
-                <p className="mt-0.5 truncate text-sm text-muted-foreground">
-                    {description || "Pas de description"}
-                </p>
-            </div>
+                <span
+                    aria-hidden
+                    className={cn(
+                        "pointer-events-none absolute -bottom-4 -right-3 select-none font-space-grotesk",
+                        "text-[88px] font-black leading-none tracking-tighter",
+                        is_connected ? "text-white/18" : "text-foreground/[0.07]"
+                    )}
+                >
+                    {initials}
+                </span>
 
-            {/* Indicateurs */}
-            <div className="flex shrink-0 items-center gap-2">
-                {has_password && (
-                    <KeyRound
-                        className="h-3.5 w-3.5 text-muted-foreground/40"
-                        strokeWidth={2}
-                    />
-                )}
-                {is_currently_locked && (
-                    <LockKeyhole
-                        className="h-3.5 w-3.5 text-muted-foreground/60"
-                        strokeWidth={2.5}
-                    />
-                )}
-                {is_connected ? (
-                    <div className="flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 shadow-sm">
-                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-400" />
-                        <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
-                            Connecté
-                        </span>
+                {/* Icônes contraintes — petits ronds en haut à droite */}
+                {(has_password || is_currently_locked) && (
+                    <div className="absolute right-3 top-3 flex items-center gap-1">
+                        {has_password && (
+                            <span
+                                className={cn(
+                                    "flex h-5.5 w-5.5 items-center justify-center rounded-full",
+                                    is_connected
+                                        ? "bg-white/22 text-white/80"
+                                        : "bg-foreground/10 text-foreground/45"
+                                )}
+                            >
+                                <KeyRound className="h-2.75 w-2.75" strokeWidth={2} />
+                            </span>
+                        )}
+                        {is_currently_locked && (
+                            <span
+                                className={cn(
+                                    "flex h-5.5 w-5.5 items-center justify-center rounded-full",
+                                    is_connected
+                                        ? "bg-white/22 text-white/80"
+                                        : "bg-foreground/10 text-foreground/45"
+                                )}
+                            >
+                                <LockKeyhole className="h-2.75 w-2.75" strokeWidth={2.5} />
+                            </span>
+                        )}
                     </div>
-                ) : (
-                    is_active && (
-                        <div className="flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 shadow-sm">
-                            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-destructive" />
-                            <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
-                                Actif
+                )}
+
+                {/* Statut — ancré en bas à gauche, monospace */}
+                <div className="absolute bottom-3 left-3.5">
+                    {is_connected ? (
+                        <div className="flex items-center gap-1.5">
+                            <span className="h-1.75 w-1.75 animate-pulse rounded-full bg-green-300 shadow-[0_0_8px_rgba(134,239,172,0.9)]" />
+                            <span className="font-jetbrains-mono text-[9px] font-medium uppercase tracking-[0.12em] text-white/65">
+                                live
                             </span>
                         </div>
-                    )
-                )}
+                    ) : is_active ? (
+                        <span className="font-jetbrains-mono text-[9px] font-medium uppercase tracking-[0.12em] text-foreground/35">
+                            actif
+                        </span>
+                    ) : null}
+                </div>
+            </div>
+
+            {/* Séparateur perforé — évoque le ticket/keycard */}
+            <div className="relative flex h-px items-center overflow-hidden">
+                <div className="w-full border-t border-dashed border-border" />
+                <span className="absolute -left-2 h-4 w-4 rounded-full bg-background ring-1 ring-border" />
+                <span className="absolute -right-2 h-4 w-4 rounded-full bg-background ring-1 ring-border" />
+            </div>
+
+            {/* Zone info */}
+            <div className="px-4 pb-4 pt-3.5">
+                <p className="font-space-grotesk text-[13.5px] font-bold leading-snug tracking-[-0.01em] text-foreground">
+                    {name}
+                </p>
+                <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-muted-foreground">
+                    {description || "Pas de description"}
+                </p>
             </div>
         </div>
     )
