@@ -1,5 +1,5 @@
 function NotConnectedPage() {
-    return <div>Page de non connexion</div>
+    return <div>T'es pas connecté poto</div>
 }
 
 export default NotConnectedPage

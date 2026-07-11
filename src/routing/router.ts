@@ -48,38 +48,4 @@ export const router = createBrowserRouter([
             },
         ],
     },
-    // {
-    //     id: LoaderIds.ADMIN_PROTECTED_ROUTES,
-    //     HydrateFallback: FullPageLoader,
-    //     loader: adminAuthLoader,
-    //     path: PATHS_MAPPING.ADMIN,
-    //     Component: AdminLayout,
-    //     children: [
-    //         {
-    //             index: true,
-    //             path: PATHS_MAPPING.ADMIN_DASHBOARD,
-    //             Component: Placeholder,
-    //         },
-    //         {
-    //             path: PATHS_MAPPING.ADMIN_PRODUCTS,
-    //             Component: Placeholder,
-    //         },
-    //         {
-    //             path: PATHS_MAPPING.ADMIN_ORDERS,
-    //             Component: Placeholder,
-    //         },
-    //         {
-    //             path: PATHS_MAPPING.ADMIN_CUSTOMERS,
-    //             Component: Placeholder,
-    //         },
-    //         {
-    //             path: PATHS_MAPPING.ADMIN_LOGS,
-    //             Component: Placeholder,
-    //         },
-    //         {
-    //             path: PATHS_MAPPING.ADMIN_SETTINGS,
-    //             Component: Placeholder,
-    //         },
-    //     ],
-    // },
 ])
