@@ -1,5 +1,8 @@
 import { api } from "@/services/baseApi.ts"
-import type { GetMessagesPaginatedResponse } from "@/types/api/messagesApiSchemas.ts"
+import type {
+    CreateMessageInput,
+    GetMessagesPaginatedResponse, ReadMessageResponse,
+} from "@/types/api/messagesApiSchemas.ts"
 
 export async function getMessagesPaginated(
     cursor: string | null = null,
@@ -11,9 +14,19 @@ export async function getMessagesPaginated(
             errorStrategy: "global",
             params: {
                 cursor: cursor,
-                limit: limit
-            }
+                limit: limit,
+            },
         }
     )
+    return res.data
+}
+
+export async function sendMessage(
+    data: CreateMessageInput
+): Promise<ReadMessageResponse> {
+    const res = await api.post<ReadMessageResponse>("/v1/messages/", data, {
+        errorStrategy: "global",
+    })
+
     return res.data
 }
