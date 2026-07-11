@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+/*import { Button } from "@/components/ui/button"
 
 export function App() {
   return (
@@ -18,4 +18,11 @@ export function App() {
   )
 }
 
-export default App
+export default <App></App>*/
+import LandingPage from "@/components/LandingPage.jsx";
+
+function App() {
+  return <LandingPage onChooseClass={() => {}} />;
+}
+
+export default App;
