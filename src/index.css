@@ -108,6 +108,21 @@
     --dia-msg-card-shadow-bubble-amber-1: rgba(255, 122, 26, 0.45);
     --dia-msg-card-shadow-bubble-amber-2: rgba(0, 0, 0, 0.14);
     --dia-msg-card-shadow-bubble-amber-3: rgba(255, 255, 255, 0.4);
+
+    /* variables pour le composant NotFound (TV) */
+    --tv-antenna-head: #f27405;
+    --tv-antenna-shadow: #a85103;
+    --tv-antenna-highlight: #f69e50;
+    --tv-antenna-rod: #171717;
+    --tv-antenna-rod-light: #353535;
+    --tv-grey-accent: #979797;
+    --tv-body: #d36604;
+    --tv-body-border: #1d0e01;
+    --tv-body-highlight: #e69635;
+    --tv-buttons-bg: #e69635;
+    --tv-knob: #7f5934;
+    --tv-knob-highlight: #b49577;
+    --tv-stand: #4d4d4d;
 }
 
 .dark {

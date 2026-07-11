@@ -15,17 +15,20 @@ import NotConnectedPage from "@/pages/NotConnectedPage.tsx"
 
 
 import LandingPage from "@/components/LandingPage.tsx"
+import RouteErrorBoundary from "@/components/routing/RouteErrorBoundary.tsx"
 
 export const router = createBrowserRouter([
     //LandingPage à la racine "/"
     {
         path: PATHS_MAPPING.HOME,
         Component: LandingPage,
+        ErrorBoundary: RouteErrorBoundary,
     },
     //les pages sont déplacées sous "/app"
     {
         path: PATHS_MAPPING.APP,
         Component: ClientLayout,
+        ErrorBoundary: RouteErrorBoundary,
         children: [
             {
                 //chemins relatifs
@@ -50,5 +53,10 @@ export const router = createBrowserRouter([
             },
 
         ],
+    },
+    // Fallback pour toutes les autres routes (404)
+    {
+        path: "*",
+        Component: RouteErrorBoundary,
     },
 ])
