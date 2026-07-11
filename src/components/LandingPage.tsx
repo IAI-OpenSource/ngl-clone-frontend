@@ -169,7 +169,7 @@ const SecondaryNav: React.FC<SecondaryNavProps> = ({ visible, onMenuOpen }) => {
       style={{ transform: visible ? "translateY(0)" : "translateY(-100%)" }}
     >
       <a href="#" className="ngl-logo-a">
-        <img src="/ngl.png" alt="NGL" className="ngl-logo ngl-logo-sm" />
+        <img src="/ngl-logo.png" alt="NGL" className="ngl-logo ngl-logo-sm" />
       </a>
 
       <div className="ngl-nav-links ngl-d-only">
@@ -206,11 +206,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose }) => {
   return (
     <div
       className="ngl-overlay"
-      style={{ transform: open ? "translateX(0)" : "translateX(100%)" }}
+      style={{
+        transform: open ? "translateX(0)" : "translateX(100%)",
+        visibility: open ? "visible" : "hidden"
+      }}
       aria-hidden={!open}
     >
       <div className="ngl-overlay-header">
-        <img src="/ngl.png" alt="NGL" className="ngl-logo" />
+        <img src="/ngl-logo.png" alt="NGL" className="ngl-logo" />
         <button className="ngl-close-btn" onClick={onClose} aria-label="Fermer">
           <CloseIcon />
         </button>
@@ -240,18 +243,17 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="ngl-hero">
-      <h1 className="ngl-h1">
-        <span key={i} className="ngl-phrase">{PHRASES[i]}</span>
-      </h1>
-        <Link to={CLIENT_ROUTES_MAPPING.THREADS}>
-
-      <button className="ngl-cta">
-        Choisis ta classe
-      </button>
-        </Link>
-    </div>
-  );
+      <div className="ngl-hero">
+          <h1 className="ngl-h1">
+              <span key={i} className="ngl-phrase">
+                  {PHRASES[i]}
+              </span>
+          </h1>
+          <Link to={CLIENT_ROUTES_MAPPING.THREADS}>
+              <button className="ngl-cta">Choisis ta classe</button>
+          </Link>
+      </div>
+  )
 };
 
 const Footer: React.FC = () => {
@@ -298,6 +300,8 @@ const CSS: string = `
     min-height: 100vh;
     font-family: "Inter", sans-serif;
     color: #fff;
+    display: flex;
+    flex-direction: column;
   }
 
   .ngl-ticker-zone {
@@ -339,6 +343,9 @@ const CSS: string = `
     border-radius: 26px 26px 0 0;
     overflow: hidden;
     position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   .ngl-primary-nav {
@@ -418,6 +425,8 @@ const CSS: string = `
     padding: 72px 48px 96px;
     position: relative;
     min-height: 480px;
+    flex: 1;
+    justify-content: center;
   }
   .ngl-h1 {
     font-size: clamp(64px, 10vw, 120px);
@@ -485,6 +494,7 @@ const CSS: string = `
     background: transparent ;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 32px 48px 40px;
+    flex-shrink: 0;
   }
   .ngl-footer-inner {
     display: flex; align-items: center;
@@ -518,10 +528,12 @@ const CSS: string = `
 
   .ngl-overlay {
     position: fixed; inset: 0; z-index: 1000;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     display: flex; flex-direction: column;
     padding: 16px 24px 40px;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
   }
   .ngl-overlay-header {
     display: flex; align-items: center;
@@ -538,6 +550,12 @@ const CSS: string = `
     font-family: "Nunito", "Inter", sans-serif;
     letter-spacing: -0.04em; line-height: 1.25;
     padding: 6px 0;
+    transition: color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .ngl-overlay-link:hover {
+    color: #FE831B;
+    transform: translateX(4px);
   }
   .ngl-overlay-foot { padding-top: 24px; }
   .ngl-close-btn {
@@ -545,6 +563,11 @@ const CSS: string = `
     background: rgba(255, 255, 255, 0.1);
     border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .ngl-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
   }
 
   .ngl-d-only { display: flex; }
