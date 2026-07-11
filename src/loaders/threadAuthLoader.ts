@@ -4,13 +4,14 @@ import type {
 } from "@/types/api/threadsSchemas.ts"
 import { queryClient } from "@/configs/react-query/configs.ts"
 import {
-    connectedThreadQueryOptions,
+    safeConnectedThreadQueryOptions,
     threadBySlugQueryOptions,
 } from "@/configs/react-query/querysOptions.ts"
 import { withSearchParams } from "@/utils/globalUtils.ts"
 import { type LoaderFunctionArgs, redirect } from "react-router"
 import { CLIENT_ROUTES_MAPPING } from "@/routing/paths-mapping.ts"
 import { type RedirectToNotConnectedPageData } from "@/types/notConnectedPage.ts"
+import { isSuccessResponse } from "@/utils/apiResponseExtractor.ts"
 
 /**
  * Tente de récupérer un thread par slug depuis le cache ou l'API.
@@ -36,16 +37,27 @@ export default async function threadAuthLoader({
         throw new Error(`threadSlug ${threadSlug} not found`)
     }
 
-    const connectedThread = await queryClient.ensureQueryData(
-        connectedThreadQueryOptions
-    )
-    const connectedThreadData = connectedThread.result
+    let connectedThreadData: ReadThread | null | undefined = null
+    let isConnected = false
 
-    if (connectedThread.success && threadSlug === connectedThreadData?.slug) {
+    try {
+        const connectedThread = await queryClient.ensureQueryData(
+            safeConnectedThreadQueryOptions
+        )
+
+        if (isSuccessResponse(connectedThread)) {
+            connectedThreadData = connectedThread.result
+            isConnected = true
+        }
+
+    } catch {
+        console.log('Non connecté')
+    }
+
+    if (isConnected && threadSlug === connectedThreadData?.slug) {
         return connectedThreadData
     }
 
-    const isConnected = !!(connectedThread.success && connectedThreadData)
     const threadData = await safeEnsureThreadBySlug(threadSlug)
 
     if (!threadData?.success || !threadData.result) {
