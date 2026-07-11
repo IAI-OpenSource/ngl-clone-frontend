@@ -1,21 +1,29 @@
-import { Button } from "@/components/ui/button"
+import { Toaster } from "react-hot-toast"
+import { QueryClientProvider } from "@tanstack/react-query"
+import { queryClient } from "@/configs/react-query/configs.ts"
+import { RouterProvider } from "react-router"
+import { router } from "@/routing/router.ts"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import "./index.css"
 
-export function App() {
-  return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
-    </div>
-  )
+function App() {
+    return (
+        <>
+            <Toaster
+                toastOptions={{
+                    // On désactive le rendu de l'icône par défaut pour les méthodes success/error native
+                    success: { icon: null },
+                    error: { icon: null },
+                }}
+            />
+            <QueryClientProvider client={queryClient}>
+                <RouterProvider router={router} />
+                {import.meta.env.DEV && (
+                    <ReactQueryDevtools initialIsOpen={false} />
+                )}
+            </QueryClientProvider>
+        </>
+    )
 }
 
 export default App

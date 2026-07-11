@@ -3,6 +3,18 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/roboto";
+@import '@fontsource/zen-dots';
+@import '@fontsource/share-tech';
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/600.css';
+@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource-variable/syne';
+@import '@fontsource-variable/plus-jakarta-sans';
+@import '@fontsource/caveat/600.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -39,6 +51,63 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+
+    /* les variables pour las glitch card des messages */
+    --glitch-bg-back-start: #FF6F59;
+    --glitch-bg-back-end: #FFC857;
+    --glitch-bg-front: #FBF8F0;
+    --glitch-border: #1B2340;
+    --glitch-text-primary: #1B2340;
+    --glitch-eyebrow-bg: #C9E4D8;
+    --glitch-eyebrow-text: #1B2340;
+    --glitch-hidden-bg: #EFE4E2;
+    --glitch-hidden-border: #C4453A;
+    --glitch-hidden-text: #7A3630;
+    --glitch-chip-bg: #1B2340;
+    --glitch-chip-text: #F6F1E6;
+    --glitch-foot-text: #8A836F;
+    --glitch-foot-border: rgba(27, 35, 64, 0.15);
+    --glitch-shadow: rgba(27, 35, 64, 0.08);
+    --glitch-status-pending: #B8862B;
+    --glitch-status-success: #2F8F6B;
+    --glitch-status-error: #C4453A;
+
+    /*Les variables pour les cartes de message dans la dialog*/
+    --dia-msg-card-font-sans: 'Plus Jakarta Sans Variable', sans-serif;
+    --dia-msg-card-font-display: 'Syne Variable', sans-serif;
+
+    --dia-msg-card-surface: #FFFCF6;
+    --dia-msg-card-badge-bg: #FFFFFF;
+    --dia-msg-card-cream: #FFFCF6;
+    --dia-msg-card-ink: #2B1B3D;
+    --dia-msg-card-ink-soft: #8a7d99;
+    --dia-msg-card-ink-faint: #b4a9c4;
+
+    --dia-msg-card-pink: #FF4FA3;
+    --dia-msg-card-pink-deep: #DE0E68;
+    --dia-msg-card-purple: #9163F7;
+    --dia-msg-card-purple-deep: #6D28D9;
+    --dia-msg-card-amber: #FFA63D;
+    --dia-msg-card-amber-deep: #FF7A1A;
+    --dia-msg-card-lav: #E2D1FF;
+    --dia-msg-card-rose: #FFD3E8;
+    --dia-msg-card-peach: #FFE3BE;
+
+    --dia-msg-card-shadow-ring: rgba(0, 0, 0, 0.03);
+    --dia-msg-card-shadow-purple: rgba(109, 40, 217, 0.30);
+    --dia-msg-card-shadow-pink: rgba(222, 14, 104, 0.14);
+
+    --dia-msg-card-shadow-bubble-purple-1: rgba(109, 40, 217, 0.5);
+    --dia-msg-card-shadow-bubble-purple-2: rgba(0, 0, 0, 0.18);
+    --dia-msg-card-shadow-bubble-purple-3: rgba(255, 255, 255, 0.35);
+
+    --dia-msg-card-shadow-bubble-pink-1: rgba(222, 14, 104, 0.5);
+    --dia-msg-card-shadow-bubble-pink-2: rgba(0, 0, 0, 0.16);
+    --dia-msg-card-shadow-bubble-pink-3: rgba(255, 255, 255, 0.4);
+
+    --dia-msg-card-shadow-bubble-amber-1: rgba(255, 122, 26, 0.45);
+    --dia-msg-card-shadow-bubble-amber-2: rgba(0, 0, 0, 0.14);
+    --dia-msg-card-shadow-bubble-amber-3: rgba(255, 255, 255, 0.4);
 }
 
 .dark {
@@ -73,11 +142,73 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+
+    /* les variables pour las glitch card des messages */
+    --glitch-bg-back-start: #E8563F;
+    --glitch-bg-back-end: #E8A93D;
+    --glitch-bg-front: #151A2E;
+    --glitch-border: #EDE6D6;
+    --glitch-text-primary: #F3EFE4;
+    --glitch-eyebrow-bg: #2C4A3E;
+    --glitch-eyebrow-text: #BFE6D3;
+    --glitch-hidden-bg: #3A2422;
+    --glitch-hidden-border: #E2695D;
+    --glitch-hidden-text: #F0B8AE;
+    --glitch-chip-bg: #F3EFE4;
+    --glitch-chip-text: #151A2E;
+    --glitch-foot-text: #9C9686;
+    --glitch-foot-border: rgba(243, 239, 228, 0.15);
+    --glitch-shadow: rgba(0, 0, 0, 0.35);
+    --glitch-status-pending: #E3A94C;
+    --glitch-status-success: #4FBE93;
+    --glitch-status-error: #E2695D;
+
+    /*Les variables pour les cartes de message dans la dialog*/
+    --dia-msg-card-surface: #1C1428;
+    --dia-msg-card-badge-bg: #2C2140;
+    --dia-msg-card-cream: #FBF6FF;
+    --dia-msg-card-ink: #3A2B57;
+    --dia-msg-card-ink-soft: #B8ACD1;
+    --dia-msg-card-ink-faint: #7D7096;
+
+    --dia-msg-card-pink: #FF63AD;
+    --dia-msg-card-pink-deep: #F0197A;
+    --dia-msg-card-purple: #A47BFF;
+    --dia-msg-card-purple-deep: #7C3AED;
+    --dia-msg-card-amber: #FFB158;
+    --dia-msg-card-amber-deep: #FF8A33;
+    --dia-msg-card-lav: #E2D1FF;
+    --dia-msg-card-rose: #FFD3E8;
+    --dia-msg-card-peach: #FFE3BE;
+
+    --dia-msg-card-shadow-ring: rgba(255, 255, 255, 0.06);
+    --dia-msg-card-shadow-purple: rgba(164, 123, 255, 0.35);
+    --dia-msg-card-shadow-pink: rgba(240, 25, 122, 0.20);
+
+    --dia-msg-card-shadow-bubble-purple-1: rgba(164, 123, 255, 0.5);
+    --dia-msg-card-shadow-bubble-purple-2: rgba(0, 0, 0, 0.3);
+    --dia-msg-card-shadow-bubble-purple-3: rgba(255, 255, 255, 0.2);
+
+    --dia-msg-card-shadow-bubble-pink-1: rgba(255, 99, 173, 0.5);
+    --dia-msg-card-shadow-bubble-pink-2: rgba(0, 0, 0, 0.28);
+    --dia-msg-card-shadow-bubble-pink-3: rgba(255, 255, 255, 0.22);
+
+    --dia-msg-card-shadow-bubble-amber-1: rgba(255, 177, 88, 0.45);
+    --dia-msg-card-shadow-bubble-amber-2: rgba(0, 0, 0, 0.26);
+    --dia-msg-card-shadow-bubble-amber-3: rgba(255, 255, 255, 0.22);
 }
 
 @theme inline {
     --font-sans: 'Inter Variable', sans-serif;
     --font-heading: 'Roboto Variable', sans-serif;
+    --font-zen-dots: 'Zen Dots', cursive;
+    --font-share-tech: 'Share Tech', cursive;
+    --font-space-grotesk: 'Space Grotesk', sans-serif;
+    --font-jetbrains-mono: 'JetBrains Mono', monospace;
+    --font-syne: 'Syne Variable', sans-serif;
+    --font-plus-jakarta-sans: 'Plus Jakarta Sans Variable', sans-serif;
+    --font-caveat: 'Caveat', cursive;
+    --font-inter: 'Inter', sans-serif;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -131,4 +262,9 @@
   html {
     @apply font-sans;
     }
+}
+
+::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
 }

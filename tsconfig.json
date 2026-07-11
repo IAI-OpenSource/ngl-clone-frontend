@@ -5,8 +5,9 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+      "strict": true,
+      "paths": {
+          "@/*": ["./src/*"]
+      }
   }
 }
