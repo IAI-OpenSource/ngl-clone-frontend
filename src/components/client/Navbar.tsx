@@ -38,7 +38,7 @@ function Logo() {
     return (
         <div className="flex items-center gap-2 rounded-full border-2 border-dotted border-foreground bg-chart-3 py-1 px-5 md:px-10">
             <img src={nglLogo} alt="Marketflow" className="w-15 md:w-[85]" />
-            <span className="font-zen-dots font-extrabold text-accent md:text-2xl">
+            <span className="font-syne font-extrabold text-accent md:text-2xl">
                 NGL IAI
             </span>
         </div>
