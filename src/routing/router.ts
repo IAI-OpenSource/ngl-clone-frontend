@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router"
 
 
-import { CLIENT_ROUTES_MAPPING, PATHS_MAPPING } from "./paths-mapping.ts"
+import { PATHS_MAPPING, CLIENT_ROUTES_RELATIVE } from "./paths-mapping.ts" //import du mapping relatif
 import ClientLayout from "@/layouts/ClientLayout.tsx"
 import Index from "@/pages/Index.tsx"
 import ThreadsPage from "@/pages/ThreadsPage.tsx"
@@ -12,9 +12,18 @@ import FullPageLoader from "@/components/client/FullPageLoader.tsx"
 import NewMessagePage from "@/pages/NewMessagePage.tsx"
 import NotConnectedPage from "@/pages/NotConnectedPage.tsx"
 
+
+import LandingPage from "@/components/LandingPage.tsx"
+
 export const router = createBrowserRouter([
+    //LandingPage à la racine "/"
     {
         path: PATHS_MAPPING.HOME,
+        Component: LandingPage,
+    },
+    //les pages sont déplacées sous "/app"
+    {
+        path: PATHS_MAPPING.APP,
         Component: ClientLayout,
         children: [
             {
@@ -22,23 +31,24 @@ export const router = createBrowserRouter([
                 Component: Index,
             },
             {
-                path: CLIENT_ROUTES_MAPPING.THREADS,
+                //chemins relatifs
+                path: CLIENT_ROUTES_RELATIVE.THREADS,
                 Component: ThreadsPage,
             },
             {
-                path: CLIENT_ROUTES_MAPPING.THREADS_MESSAGES,
+                path: CLIENT_ROUTES_RELATIVE.THREADS_MESSAGES,
                 Component: MessagesPage,
                 loader: threadAuthLoader,
                 HydrateFallback: FullPageLoader,
             },
             {
-                path: CLIENT_ROUTES_MAPPING.NEW_MESSAGE,
+                path: CLIENT_ROUTES_RELATIVE.NEW_MESSAGE,
                 Component: NewMessagePage,
                 loader: threadAuthLoader,
                 HydrateFallback: FullPageLoader,
             },
             {
-                path: CLIENT_ROUTES_MAPPING.NOT_CONNECTED,
+                path: CLIENT_ROUTES_RELATIVE.NOT_CONNECTED,
                 Component: NotConnectedPage,
             },
 
