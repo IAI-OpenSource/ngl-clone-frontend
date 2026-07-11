@@ -290,7 +290,7 @@ const Footer: React.FC = () => {
           ))}
         </nav>
 
-        <p className="ngl-tagline">Made by @Benito404 et son fils @Sevtify[404]</p>
+        <p className="ngl-tagline">Made by @Benito404 et son apprenti @Sevtify[404]</p>
       </div>
     </footer>
   );
