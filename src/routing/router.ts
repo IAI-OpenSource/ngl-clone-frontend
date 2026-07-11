@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router"
 
 
-import { PATHS_MAPPING, CLIENT_ROUTES_RELATIVE } from "./paths-mapping.ts" //import du mapping relatif
+import {
+    PATHS_MAPPING,
+    CLIENT_ROUTES_MAPPING,
+} from "./paths-mapping.ts" //import du mapping relatif
 import ClientLayout from "@/layouts/ClientLayout.tsx"
-import Index from "@/pages/Index.tsx"
 import ThreadsPage from "@/pages/ThreadsPage.tsx"
 import MessagesPage from "@/pages/MessagesPage.tsx"
-import TestPage from "@/pages/TestPage.tsx"
 import threadAuthLoader from "@/loaders/threadAuthLoader.ts"
 import FullPageLoader from "@/components/client/FullPageLoader.tsx"
 import NewMessagePage from "@/pages/NewMessagePage.tsx"
@@ -27,35 +28,27 @@ export const router = createBrowserRouter([
         Component: ClientLayout,
         children: [
             {
-                index: true,
-                Component: Index,
-            },
-            {
                 //chemins relatifs
-                path: CLIENT_ROUTES_RELATIVE.THREADS,
+                path: CLIENT_ROUTES_MAPPING.THREADS,
                 Component: ThreadsPage,
             },
             {
-                path: CLIENT_ROUTES_RELATIVE.THREADS_MESSAGES,
+                path: CLIENT_ROUTES_MAPPING.THREADS_MESSAGES,
                 Component: MessagesPage,
                 loader: threadAuthLoader,
                 HydrateFallback: FullPageLoader,
             },
             {
-                path: CLIENT_ROUTES_RELATIVE.NEW_MESSAGE,
+                path: CLIENT_ROUTES_MAPPING.NEW_MESSAGE,
                 Component: NewMessagePage,
                 loader: threadAuthLoader,
                 HydrateFallback: FullPageLoader,
             },
             {
-                path: CLIENT_ROUTES_RELATIVE.NOT_CONNECTED,
+                path: CLIENT_ROUTES_MAPPING.NOT_CONNECTED,
                 Component: NotConnectedPage,
             },
 
-            {
-                path: "/test",
-                Component: TestPage,
-            },
         ],
     },
 ])

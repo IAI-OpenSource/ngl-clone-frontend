@@ -34,13 +34,5 @@ export const CLIENT_ROUTES_MAPPING = {
     THREADS: getClientRoute(PATHS_MAPPING.THREAD),
     THREADS_MESSAGES: genarateMessageRoute(SLUG_ALIAS_IN_ROUTES),
     NEW_MESSAGE: genarateNewMessageRoute(SLUG_ALIAS_IN_ROUTES),
-    NOT_CONNECTED: PATHS_MAPPING.NOT_CONNECTED,
-} as const
-
-//chemins relatifs pour les enfants du layout 
-export const CLIENT_ROUTES_RELATIVE = {
-    THREADS: PATHS_MAPPING.THREAD,
-    THREADS_MESSAGES: `${PATHS_MAPPING.THREAD}/${SLUG_ALIAS_IN_ROUTES}/messages`,
-    NEW_MESSAGE: `${PATHS_MAPPING.THREAD}/${SLUG_ALIAS_IN_ROUTES}/new-message`,
-    NOT_CONNECTED: "not-connected",
+    NOT_CONNECTED: getClientRoute(PATHS_MAPPING.NOT_CONNECTED),
 } as const

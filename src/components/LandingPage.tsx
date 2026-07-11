@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router"
+import { CLIENT_ROUTES_MAPPING } from "@/routing/paths-mapping.ts"
 
 //types , vu que j'avais fais en jsx j'ai du reconvertir
 interface PrimaryNavProps {
@@ -15,13 +17,6 @@ interface MobileMenuProps {
   onClose: () => void;
 }
 
-interface HeroProps {
-  onChooseClass: () => void;
-}
-
-interface LandingPageProps {
-  onChooseClass: () => void;
-}
 
 const GamepadIcon: React.FC = () => {
   return (
@@ -141,7 +136,7 @@ const PrimaryNav: React.FC<PrimaryNavProps> = ({ onMenuOpen }) => {
   return (
     <nav className="ngl-primary-nav">
       <a href="#" className="ngl-logo-a">
-        <img src="/ngl.png" alt="NGL" className="ngl-logo" />
+        <img src="/ngl-logo.png" alt="NGL" className="ngl-logo" />
       </a>
 
       <div className="ngl-nav-links ngl-d-only">
@@ -236,7 +231,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose }) => {
   );
 };
 
-const Hero: React.FC<HeroProps> = ({ onChooseClass }) => {
+const Hero = () => {
   const [i, setI] = useState<number>(0);
 
   useEffect(() => {
@@ -249,9 +244,12 @@ const Hero: React.FC<HeroProps> = ({ onChooseClass }) => {
       <h1 className="ngl-h1">
         <span key={i} className="ngl-phrase">{PHRASES[i]}</span>
       </h1>
-      <button onClick={onChooseClass} className="ngl-cta">
+        <Link to={CLIENT_ROUTES_MAPPING.THREADS}>
+
+      <button className="ngl-cta">
         Choisis ta classe
       </button>
+        </Link>
     </div>
   );
 };
@@ -260,7 +258,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="ngl-footer">
       <div className="ngl-footer-inner">
-        <img src="/ngl.png" alt="NGL" className="ngl-logo ngl-logo-sm" />
+        <img src="/ngl-logo.png" alt="NGL" className="ngl-logo ngl-logo-sm" />
 
         <nav className="ngl-footer-links">
           {[
@@ -273,7 +271,7 @@ const Footer: React.FC = () => {
           ))}
         </nav>
 
-        <p className="ngl-tagline">Made by @Sevtify[404]</p>
+        <p className="ngl-tagline">Made by @Benito404 et son fils @Sevtify[404]</p>
       </div>
     </footer>
   );
@@ -572,7 +570,7 @@ const CSS: string = `
 `;
 
 // accepppte la prop onchoooseclass
-const LandingPage: React.FC<LandingPageProps> = ({ onChooseClass }) => {
+const LandingPage = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
@@ -589,7 +587,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onChooseClass }) => {
       <SecondaryNav visible={scrolled} onMenuOpen={() => setMenuOpen(true)} />
       <div className="ngl-gradient-zone">
         <PrimaryNav onMenuOpen={() => setMenuOpen(true)} />
-        <Hero onChooseClass={onChooseClass} />
+        <Hero />
       </div>
       <Footer />
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
