@@ -12,7 +12,7 @@ function Index() {
     const navigate = useNavigate();
     const {showError} = useAppErrorDialogStore()
     return (
-        <div className="flex items-center justify-center gap-3">
+        <div className="flex-col items-center  justify-center gap-3">
             <Button
                 variant="default"
                 onClick={() => {

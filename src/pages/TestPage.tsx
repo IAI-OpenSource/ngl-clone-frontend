@@ -1,11 +1,7 @@
-import NewMessagePageContent from "@/components/client/NewMessagePageContent.tsx"
+import NotConnectedPage from "@/pages/NotConnectedPage.tsx"
 
 function TestPage() {
-    return (
-        <div className="flex flex-col items-center justify-center gap-8 w-full">
-            <NewMessagePageContent/>
-        </div>
-    )
+    return <NotConnectedPage/>
 }
 
 export default TestPage

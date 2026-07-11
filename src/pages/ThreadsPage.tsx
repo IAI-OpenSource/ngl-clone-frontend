@@ -16,6 +16,7 @@ import Button  from "@/components/ui/button.tsx"
 import { RefreshCcwIcon } from "lucide-react"
 import { useToast } from "@/hooks/useToasts.tsx"
 import { rearrangeThreads } from "@/utils/threadsUtils.ts"
+import SafeDivWrapper from "@/components/client/SafeDivWrapper.tsx"
 
 function ThreadsPage() {
     const { threadsQueryResult, isLoading, refetch } = useAllThreads()
@@ -59,7 +60,7 @@ function ThreadsPage() {
                 </DialogContent>
             </Dialog>
 
-            <div className="flex w-full flex-col items-center justify-center px-4 pt-8 pb-24 xl:pt-0 xl:pb-0">
+            <SafeDivWrapper className="items-center justify-center">
                 <div className="flex w-full flex-wrap items-center justify-center gap-3">
                     {threadsToRender.map((thread) => {
                         const isConnected = thread.is_connected
@@ -92,7 +93,7 @@ function ThreadsPage() {
                     <RefreshCcwIcon />
                     Recharger
                 </Button>
-            </div>
+            </SafeDivWrapper>
         </>
     )
 }
