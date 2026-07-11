@@ -2,6 +2,7 @@ import { TANSTACK_QUERY_KEYS } from "@/configs/react-query/queryKeys.ts"
 import {
     getAllThreads,
     getConnectedThread,
+    getThreadBySlug,
     safeGetConnectedThread,
 } from "@/services/threadService.ts"
 import { getMessagesPaginated } from "@/services/messageService.ts"
@@ -56,3 +57,12 @@ export const messagesPaginatedQueryOptions = {
     getNextPageParam: (lastPage: GetMessagesPaginatedResponse) =>
         lastPage.result?.has_next_page ? lastPage.result.next_cursor : undefined,
 }
+
+export const threadBySlugQueryOptions = (slug: string) => ({
+    queryKey: TANSTACK_QUERY_KEYS.THREAD_BY_SLUG(slug),
+    queryFn: async () => {
+        return await getThreadBySlug(slug, "do-nothing")
+    },
+    retry: false,
+    staleTime: 1000 * 60 * 5, // Fraîche pendant 5 minutes
+})

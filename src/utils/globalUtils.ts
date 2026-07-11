@@ -1,5 +1,26 @@
 import type { ZodError } from "zod"
 
+
+
+export function withSearchParams<T extends object>(
+    pathname: string,
+    params: T
+) {
+    const search = new URLSearchParams()
+
+    for (const [key, value] of Object.entries(params)) {
+        if (
+            typeof value === "string" ||
+            typeof value === "number" ||
+            typeof value === "boolean"
+        ) {
+            search.set(key, String(value))
+        }
+    }
+
+    return `${pathname}?${search.toString()}`
+}
+
 /**
  * Formate une date ISO en chaîne de caractères en français.
  * * @param createdAtIso - La date au format ISO
