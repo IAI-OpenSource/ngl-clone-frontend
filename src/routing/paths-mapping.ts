@@ -11,10 +11,14 @@ export const PATHS_MAPPING = {
 
     NOT_CONNECTED: "/not-connected",
 
+    // point d'entrée)
+    APP: "/app",
+
 } as const
 
 export const getClientRoute = (path: string): string => {
-    return `${PATHS_MAPPING.HOME}${path}`
+    // les routes client sontsous "/app"
+    return `${PATHS_MAPPING.APP}/${path}`
 }
 
 const SLUG_ALIAS_IN_ROUTES = ':threadSlug'
@@ -30,5 +34,5 @@ export const CLIENT_ROUTES_MAPPING = {
     THREADS: getClientRoute(PATHS_MAPPING.THREAD),
     THREADS_MESSAGES: genarateMessageRoute(SLUG_ALIAS_IN_ROUTES),
     NEW_MESSAGE: genarateNewMessageRoute(SLUG_ALIAS_IN_ROUTES),
-    NOT_CONNECTED: PATHS_MAPPING.NOT_CONNECTED,
+    NOT_CONNECTED: getClientRoute(PATHS_MAPPING.NOT_CONNECTED),
 } as const

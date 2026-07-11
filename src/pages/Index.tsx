@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 
 import useTheme from "@/hooks/useTheme.ts";
 import {useNavigate} from "react-router";
-import {CLIENT_ROUTES_MAPPING} from "@/routing/paths-mapping.ts";
+import { PATHS_MAPPING } from "@/routing/paths-mapping.ts"; //mport PATHS_MAPPING
 import { CircleIcon } from "lucide-react"
 import Button from "@/components/ui/button";
 import { useAppErrorDialogStore } from "@/stores/appErrorDialogStore.ts"
@@ -21,7 +21,8 @@ function Index() {
                         position: "top-right",
                         icon: <CircleIcon />,
                     })
-                    navigate(CLIENT_ROUTES_MAPPING.HOME)
+                    //navigation vers PATHS_MAPPING.APP
+                    navigate(PATHS_MAPPING.APP)
                 }}
             >
                 Test Vers Admin

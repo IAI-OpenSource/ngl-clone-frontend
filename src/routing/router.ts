@@ -1,27 +1,34 @@
 import { createBrowserRouter } from "react-router"
 
 
-import { CLIENT_ROUTES_MAPPING, PATHS_MAPPING } from "./paths-mapping.ts"
+import {
+    PATHS_MAPPING,
+    CLIENT_ROUTES_MAPPING,
+} from "./paths-mapping.ts" //import du mapping relatif
 import ClientLayout from "@/layouts/ClientLayout.tsx"
-import Index from "@/pages/Index.tsx"
 import ThreadsPage from "@/pages/ThreadsPage.tsx"
 import MessagesPage from "@/pages/MessagesPage.tsx"
-import TestPage from "@/pages/TestPage.tsx"
 import threadAuthLoader from "@/loaders/threadAuthLoader.ts"
 import FullPageLoader from "@/components/client/FullPageLoader.tsx"
 import NewMessagePage from "@/pages/NewMessagePage.tsx"
 import NotConnectedPage from "@/pages/NotConnectedPage.tsx"
 
+
+import LandingPage from "@/components/LandingPage.tsx"
+
 export const router = createBrowserRouter([
+    //LandingPage à la racine "/"
     {
         path: PATHS_MAPPING.HOME,
+        Component: LandingPage,
+    },
+    //les pages sont déplacées sous "/app"
+    {
+        path: PATHS_MAPPING.APP,
         Component: ClientLayout,
         children: [
             {
-                index: true,
-                Component: Index,
-            },
-            {
+                //chemins relatifs
                 path: CLIENT_ROUTES_MAPPING.THREADS,
                 Component: ThreadsPage,
             },
@@ -42,10 +49,6 @@ export const router = createBrowserRouter([
                 Component: NotConnectedPage,
             },
 
-            {
-                path: "/test",
-                Component: TestPage,
-            },
         ],
     },
 ])
