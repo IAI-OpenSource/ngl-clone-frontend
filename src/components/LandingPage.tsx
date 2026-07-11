@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router"
 import { CLIENT_ROUTES_MAPPING } from "@/routing/paths-mapping.ts"
+import { AnimatePresence, motion } from "framer-motion"
 
 //types , vu que j'avais fais en jsx j'ai du reconvertir
 interface PrimaryNavProps {
@@ -92,14 +93,14 @@ const TICKER_ITEMS: string[] = [
 const NAV_LINKS: string[] = ["À propos", "Confidentialité"];
 
 const PHRASES: string[] = [
-  "c'est qui\nton crush ?",
-  "balance ton\npire secret",
-  "tu n'as\njamais fait ?",
-  "un avis qui\ndécoiffe ?",
-  "dis tout\nsans filtre",
-  "mentir ?\njamais",
-  "ton plus grand\nregret ?",
-  "ngl version IAI"
+  "C'est qui\nton crush ?",
+  "Balance ton\npire secret",
+  "Tu n'as\njamais fait ?",
+  "Un avis qui\ndécoiffe ?",
+  "Dis tout\nsans filtre",
+  "Mentir ?\nJamais !",
+  "Ton plus grand\nregret ?",
+  "NGL version IAI"
 ];
 
 const Ticker: React.FC = () => {
@@ -220,6 +221,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose }) => {
       </div>
 
       <div className="ngl-overlay-links">
+        <Link
+          to={CLIENT_ROUTES_MAPPING.THREADS}
+          className="ngl-overlay-link"
+          onClick={onClose}
+        >
+          Let's go
+        </Link>
         {NAV_LINKS.map((l) => (
           <a key={l} href="#" className="ngl-overlay-link" onClick={onClose}>
             {l}
@@ -244,10 +252,19 @@ const Hero = () => {
 
   return (
       <div className="ngl-hero">
-          <h1 className="ngl-h1">
-              <span key={i} className="ngl-phrase">
-                  {PHRASES[i]}
-              </span>
+          <h1 className="ngl-h1" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <AnimatePresence mode="popLayout">
+                  <motion.span
+                      key={i}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -30 }}
+                      transition={{ duration: 0.45, ease: [0.215, 0.610, 0.355, 1] }}
+                      className="ngl-phrase"
+                  >
+                      {PHRASES[i]}
+                  </motion.span>
+              </AnimatePresence>
           </h1>
           <Link to={CLIENT_ROUTES_MAPPING.THREADS}>
               <button className="ngl-cta">Choisis ta classe</button>
@@ -440,7 +457,6 @@ const CSS: string = `
   }
   .ngl-phrase {
     display: block;
-    animation: ngl-up 0.4s ease forwards;
   }
   .ngl-cta {
     display: inline-flex;
