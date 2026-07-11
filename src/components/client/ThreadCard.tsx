@@ -25,7 +25,7 @@ function StatusIndicator({ isConnected, isActive }: Readonly<StatusIndicatorProp
             <div className="flex items-center gap-1.5">
                 <span className="h-1.75 w-1.75 animate-pulse rounded-full bg-green-300 shadow-[0_0_8px_rgba(134,239,172,0.9)]" />
                 <span className="font-jetbrains-mono text-[9px] font-medium uppercase tracking-[0.12em] text-white/65">
-                    live
+                    connecté
                 </span>
             </div>
         )
