@@ -8,7 +8,7 @@ import {
     AudioWaveform,
     CirclePlus,
     Eye,
-    FlaskConical,
+    // FlaskConical,
     Home,
     MessageCircleCode,
     MessageCirclePlus,
@@ -55,9 +55,9 @@ export const mobileNavbarItems  = (connectedThread?: ReadThread | undefined | nu
         label: "Nouveau Message",
         link: connectedThread ? genarateNewMessageRoute(connectedThread.slug) : CLIENT_ROUTES_MAPPING.NOT_CONNECTED,
     },
-    {
-        icon: <FlaskConical size={18} />,
-        label: "Test",
-        link: "/test",
-    },
+    // {
+    //     icon: <FlaskConical size={18} />,
+    //     label: "Test",
+    //     link: "/test",
+    // },
 ]

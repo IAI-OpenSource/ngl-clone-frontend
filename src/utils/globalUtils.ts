@@ -1,3 +1,5 @@
+import type { ZodError } from "zod"
+
 /**
  * Formate une date ISO en chaîne de caractères en français.
  * * @param createdAtIso - La date au format ISO
@@ -119,4 +121,16 @@ export function calculateMessageFontSize(textLength: number): FontSizeResult {
         min: Math.round(min),
         max: Math.round(max),
     }
+}
+
+/**
+ * Extrait le message de la première erreur d'une instance ZodError.
+ * Retourne une chaîne vide ou un message par défaut si aucune erreur n'est présente.
+ */
+export function getFirstZodErrorMessage(error: ZodError): string {
+    if (!error.issues || error.issues.length === 0) {
+        return "Une erreur de validation est survenue."
+    }
+
+    return error.issues[0].message
 }
