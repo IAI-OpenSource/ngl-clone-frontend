@@ -1,5 +1,4 @@
 import {
-    type ConnectToThreadResponse,
     type ReadThread,
     ThreadLoginPayloadZodSchema,
 } from "@/types/api/threadsSchemas.ts"
@@ -28,6 +27,9 @@ import { isAxiosError } from "axios"
 import { router } from "@/routing/router.ts"
 import { genarateMessageRoute } from "@/routing/paths-mapping.ts"
 import { useThreadAuthStore } from "@/stores/threadAuthStore.ts"
+import { useAppErrorDialogStore } from "@/stores/appErrorDialogStore.ts"
+import { handleAppError } from "@/utils/globalUtils.ts"
+import type { AppError } from "@/types/api/baseApiSchemas.ts"
 
 function ThreadConnectForm({ thread }: Readonly<{ thread: ReadThread }>) {
 
@@ -42,6 +44,7 @@ function ThreadConnectForm({ thread }: Readonly<{ thread: ReadThread }>) {
     const { isLoading, threadQueryResult } = useSafeConnectedThread()
 
     const {setAuthenticate} = useThreadAuthStore()
+    const { showError } = useAppErrorDialogStore()
 
     const {loadingToast, successToast, errorToast} = useToast()
 
@@ -60,28 +63,23 @@ function ThreadConnectForm({ thread }: Readonly<{ thread: ReadThread }>) {
                 isSuccess = true
                 await invalidThreadRelatedQueries()
             } else {
-                const error =
+                const errorMsg =
                     res?.result?.error?.error_message ||
                     "Erreur lors de la connexion"
-                errorToast(
-                    error,
-                    { id: toastId }
-                )
-                setConnectFormError(error)
-
+                errorToast('Erreur lors de la connexion',{id: toastId})
+                setConnectFormError(errorMsg)
+                handleAppError(res?.result?.error, showError, errorMsg)
             }
         }catch (err) {
-            if (isAxiosError<ConnectToThreadResponse>(err)) {
-                const error =
-                    err.response?.data.error?.error_message ||
+            if (isAxiosError<{ error?: AppError }>(err)) {
+                const apiError = err.response?.data?.error
+                const errorMsg =
+                    apiError?.error_message ||
                     "Erreur lors de la connexion"
-                errorToast(
-                    error,
-                    { id: toastId }
-                )
-                setConnectFormError(error)
+                errorToast("Erreur lors de la connexion", { id: toastId })
+                setConnectFormError(errorMsg)
+                handleAppError(apiError, showError, errorMsg)
             }
-
         }finally {
             setIsConnecting(false)
         }

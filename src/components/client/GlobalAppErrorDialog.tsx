@@ -33,7 +33,7 @@ function GlobalAppErrorDialog() {
         <Dialog open={true} onOpenChange={handleOpenChange}>
             <DialogContent
                 showCloseButton={false}
-                className="w-full max-w-sm overflow-hidden rounded-3xl border-4 border-[#1B2340] bg-[#FBF8F0] p-6 shadow-[8px_8px_0px_#1B2340] sm:max-w-md sm:p-8 dark:border-[#F3EFE4] dark:bg-[#151A2E] dark:shadow-[8px_8px_0px_#F3EFE4]"
+                className="w-5/6 md:w-full max-w-sm overflow-hidden rounded-3xl border-4 border-[#1B2340] bg-[#FBF8F0] p-6 shadow-[8px_8px_0px_#1B2340] sm:max-w-md sm:p-8 dark:border-[#F3EFE4] dark:bg-[#151A2E] dark:shadow-[8px_8px_0px_#F3EFE4]"
             >
                 {/* CSS Dot grid background pattern */}
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(27,35,64,0.15)_1.5px,transparent_1.5px)] bg-size-[12px_12px] opacity-40 dark:bg-[radial-gradient(rgba(243,239,228,0.15)_1.5px,transparent_1.5px)]" />
