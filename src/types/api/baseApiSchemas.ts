@@ -16,13 +16,8 @@ export interface ApiBaseResponse<D, E> {
      */
     error?: E | null
 }
-type AppErrorType =
-    | "LOCKED_CONTENT"
-    | "NOT_FOUND"
-    | "UNKNOWN_ERROR"
-    | "BAD_REQUEST"
-    | "UNAUTHORIZED"
-    | "RATE_LIMIT_EXCEEDED"
+export type AppErrorType = components["schemas"]["AppErrorType"]
+
 
 export interface AppError {
     /**
@@ -47,6 +42,8 @@ interface StringMessage {
 export type CommonApiBaseResponse<T> = ApiBaseResponse<T, AppError>
 export type AuthErrorResponse = components["schemas"]["AuthErrorMessage"]
 
-export type CommonApiBaseResponseWithAuth<T> = AuthErrorResponse | ApiBaseResponse<T, AppError>
+export type CommonApiBaseResponseWithAuth<T> =
+    | AuthErrorResponse
+    | ApiBaseResponse<T, AppError>
 
 export type GlobalStringResponse = ApiBaseResponse<StringMessage, AppError>
