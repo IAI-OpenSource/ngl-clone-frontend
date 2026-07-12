@@ -1,4 +1,19 @@
 import type { ZodError } from "zod"
+import {
+    Lock,
+    FileQuestion,
+    AlertCircle,
+    AlertTriangle,
+    ShieldAlert,
+    Flame,
+} from "lucide-react"
+import type { AppError, AppErrorType } from "@/types/api/baseApiSchemas.ts"
+
+interface ErrorDialogConfig {
+    title: string
+    variant: "destructive" | "warning" | "info" | "glitch"
+    errorIcon: typeof AlertCircle
+}
 
 
 
@@ -154,4 +169,68 @@ export function getFirstZodErrorMessage(error: ZodError): string {
     }
 
     return error.issues[0].message
+}
+
+
+const ERROR_MAPPING: Record<AppErrorType, ErrorDialogConfig> = {
+    LOCKED_CONTENT: {
+        title: "Discussion verrouillée",
+        variant: "warning",
+        errorIcon: Lock,
+    },
+    NOT_FOUND: {
+        title: "Discussion introuvable",
+        variant: "destructive",
+        errorIcon: FileQuestion,
+    },
+    UNKNOWN_ERROR: {
+        title: "Erreur mystérieuse",
+        variant: "glitch",
+        errorIcon: AlertCircle,
+    },
+    BAD_REQUEST: {
+        title: "Requête invalide",
+        variant: "warning",
+        errorIcon: AlertTriangle,
+    },
+    UNAUTHORIZED: {
+        title: "Accès refusé",
+        variant: "destructive",
+        errorIcon: ShieldAlert,
+    },
+    RATE_LIMIT_EXCEEDED: {
+        title: "Du calme poto !",
+        variant: "glitch",
+        errorIcon: Flame,
+    },
+}
+
+/**
+ * Centralise l'affichage des erreurs métier (AppError) sous forme de dialogue Sticker.
+ */
+export function handleAppError(
+    appError: AppError | null | undefined,
+    showError: (errorData: {
+        title: string
+        message: string
+        errorIcon: typeof AlertCircle
+        errorCode?: string
+        variant?: "destructive" | "warning" | "info" | "glitch"
+    }) => void,
+    fallbackMessage: string = "Une erreur est survenue lors de l'opération."
+) {
+    const apiError = appError ?? {
+        error_type: "UNKNOWN_ERROR" as const,
+        error_message: fallbackMessage,
+    }
+    const errorType = apiError.error_type
+    const config = ERROR_MAPPING[errorType] ?? ERROR_MAPPING.UNKNOWN_ERROR
+
+    showError({
+        title: config.title,
+        message: apiError.error_message,
+        errorIcon: config.errorIcon,
+        errorCode: errorType,
+        variant: config.variant,
+    })
 }
