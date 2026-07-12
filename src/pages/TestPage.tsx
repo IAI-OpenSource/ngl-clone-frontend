@@ -1,7 +1,7 @@
-import NotConnectedPage from "@/pages/NotConnectedPage.tsx"
+import Index from "@/pages/Index.tsx"
 
 function TestPage() {
-    return <NotConnectedPage/>
+    return <Index/>
 }
 
 export default TestPage
