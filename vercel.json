@@ -1,5 +1,7 @@
 {
   "rewrites": [
+    { "source": "/v1/:path*", "destination": "https://ngl.chette1x.duckdns.org/v1/:path*" },
+    { "source": "/health", "destination": "https://ngl.chette1x.duckdns.org/health" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
