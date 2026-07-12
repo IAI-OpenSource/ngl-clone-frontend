@@ -4,7 +4,7 @@ import { createBrowserRouter } from "react-router"
 import {
     PATHS_MAPPING,
     CLIENT_ROUTES_MAPPING,
-} from "./paths-mapping.ts" //import du mapping relatif
+} from "./paths-mapping.ts"
 import ClientLayout from "@/layouts/ClientLayout.tsx"
 import ThreadsPage from "@/pages/ThreadsPage.tsx"
 import MessagesPage from "@/pages/MessagesPage.tsx"
@@ -14,8 +14,9 @@ import NewMessagePage from "@/pages/NewMessagePage.tsx"
 import NotConnectedPage from "@/pages/NotConnectedPage.tsx"
 
 
-import LandingPage from "@/components/LandingPage.tsx"
+import LandingPage from "@/pages/LandingPage.tsx"
 import RouteErrorBoundary from "@/components/routing/RouteErrorBoundary.tsx"
+import TestPage from "@/pages/TestPage.tsx"
 
 export const router = createBrowserRouter([
     //LandingPage à la racine "/"
@@ -51,9 +52,14 @@ export const router = createBrowserRouter([
                 path: CLIENT_ROUTES_MAPPING.NOT_CONNECTED,
                 Component: NotConnectedPage,
             },
-
+            {
+                path: "test",
+                Component: TestPage,
+                ErrorBoundary: RouteErrorBoundary,
+            },
         ],
     },
+
     // Fallback pour toutes les autres routes (404)
     {
         path: "*",
