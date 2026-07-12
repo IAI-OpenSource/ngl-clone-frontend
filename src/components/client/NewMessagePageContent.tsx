@@ -6,15 +6,9 @@ import {
     InputGroupTextarea,
 } from "@/components/ui/input-group.tsx"
 import {
-    AlertCircle,
-    AlertTriangle,
-    FileQuestion,
-    Flame,
-    Lock,
     MessageSquare,
     RotateCcw,
     SendHorizonal,
-    ShieldAlert,
     UserRoundPlus,
     X,
 } from "lucide-react"
@@ -27,7 +21,7 @@ import {
 import { useToast } from "@/hooks/useToasts.tsx"
 import Button from "@/components/ui/button.tsx"
 import { useAppErrorDialogStore } from "@/stores/appErrorDialogStore.ts"
-import type { AppError, AppErrorType } from "@/types/api/baseApiSchemas.ts"
+import type { AppError } from "@/types/api/baseApiSchemas.ts"
 import {
     Combobox,
     ComboboxChip,
@@ -58,48 +52,9 @@ import {
 import { ScrollBar } from "@/components/ui/scroll-area.tsx"
 import { isAxiosError } from "axios"
 import { invalidateMessagesPaginatedQuery } from "@/configs/react-query/utils.ts"
-import { getFirstZodErrorMessage } from "@/utils/globalUtils.ts"
+import { getFirstZodErrorMessage, handleAppError } from "@/utils/globalUtils.ts"
 import { AnimatePresence, motion } from "framer-motion"
 import { MessageSentSuccessDrawer } from "@/components/client/MessageSentSuccessDrawer.tsx"
-
-interface ErrorDialogConfig {
-    title: string
-    variant: "destructive" | "warning" | "info" | "glitch"
-    errorIcon: typeof AlertCircle
-}
-
-const ERROR_MAPPING: Record<AppErrorType, ErrorDialogConfig> = {
-    LOCKED_CONTENT: {
-        title: "Discussion verrouillée",
-        variant: "warning",
-        errorIcon: Lock,
-    },
-    NOT_FOUND: {
-        title: "Discussion introuvable",
-        variant: "destructive",
-        errorIcon: FileQuestion,
-    },
-    UNKNOWN_ERROR: {
-        title: "Erreur mystérieuse",
-        variant: "glitch",
-        errorIcon: AlertCircle,
-    },
-    BAD_REQUEST: {
-        title: "Requête invalide",
-        variant: "warning",
-        errorIcon: AlertTriangle,
-    },
-    UNAUTHORIZED: {
-        title: "Accès refusé",
-        variant: "destructive",
-        errorIcon: ShieldAlert,
-    },
-    RATE_LIMIT_EXCEEDED: {
-        title: "Du calme poto !",
-        variant: "glitch",
-        errorIcon: Flame,
-    },
-}
 
 const MAX_MESSAGE_CHARS_LENGTH = 500
 
@@ -158,22 +113,7 @@ function NewMessagePageContent({
                     sendRes.error?.error_message ||
                     "Erreur inconnue lors de l'envoi du message."
                 setFormError(errMsg)
-
-                const apiError = sendRes.error ?? {
-                    error_type: "UNKNOWN_ERROR" as const,
-                    error_message: errMsg,
-                }
-                const errorType = apiError.error_type
-                const config =
-                    ERROR_MAPPING[errorType] ?? ERROR_MAPPING.UNKNOWN_ERROR
-
-                showError({
-                    title: config.title,
-                    message: apiError.error_message,
-                    errorIcon: config.errorIcon,
-                    errorCode: errorType,
-                    variant: config.variant,
-                })
+                handleAppError(sendRes.error, showError, errMsg)
             } else if (sendRes.result) {
                 await invalidateMessagesPaginatedQuery()
                 setSentMessage(sendRes.result)
@@ -182,23 +122,12 @@ function NewMessagePageContent({
             }
         } catch (err) {
             if (isAxiosError<{ error?: AppError }>(err)) {
-                const apiError = err.response?.data?.error ?? {
-                    error_type: "UNKNOWN_ERROR" as const,
-                    error_message:
-                        "Une erreur inconnue s'est produite lors de l'envoi.",
-                }
-                const errorType = apiError.error_type
-                const config =
-                    ERROR_MAPPING[errorType] ?? ERROR_MAPPING.UNKNOWN_ERROR
-
-                setFormError(apiError.error_message)
-                showError({
-                    title: config.title,
-                    message: apiError.error_message,
-                    errorIcon: config.errorIcon,
-                    errorCode: errorType,
-                    variant: config.variant,
-                })
+                const apiError = err.response?.data?.error
+                const errMsg =
+                    apiError?.error_message ||
+                    "Une erreur inconnue s'est produite lors de l'envoi."
+                setFormError(errMsg)
+                handleAppError(apiError, showError, errMsg)
             }
         }
 
